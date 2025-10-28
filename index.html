@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Amit Kumar — Portfolio</title>
+  <title>Amit Kumar — Premium Portfolio</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -13,9 +13,11 @@
       --bg1: #021124;
       --bg2: #062a4f;
       --accent: #06b6d4;
+      --accent-glow: #06b6d4;
       --glass: rgba(255,255,255,0.06);
       --glass-2: rgba(255,255,255,0.03);
       --card-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      --neon-glow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent);
     }
     *{box-sizing:border-box; margin:0; padding:0}
     html,body{height:100%; overflow-x:hidden}
@@ -27,6 +29,15 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.5;
+      /* Prevent horizontal scroll on mobile */
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Performance optimizations for mobile */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
 
     /* Particle canvas */
@@ -39,6 +50,41 @@
       pointer-events:none;
     }
 
+    /* New VFX Elements - Optimized for mobile */
+    .vfx-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      opacity: 0.1;
+      filter: blur(20px);
+      animation: float-shapes 20s infinite linear;
+    }
+
+    .neon-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(6,182,212,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid-move 40s infinite linear;
+    }
+
+    /* Mobile-first page layout */
     .page{
       position:relative;
       z-index:2;
@@ -46,7 +92,9 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:20px;
+      padding:15px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* Main container - Mobile first approach */
@@ -55,7 +103,7 @@
       max-width:500px;
       display:flex;
       flex-direction:column;
-      gap:20px;
+      gap:15px;
     }
 
     /* For tablets and larger screens */
@@ -69,7 +117,7 @@
       }
     }
 
-    /* Left profile card */
+    /* Left profile card - Enhanced for mobile */
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.05);
@@ -80,6 +128,14 @@
       overflow:hidden;
       backdrop-filter: blur(6px) saturate(120%);
       order: 1; /* Show second on mobile */
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.1);
     }
 
     @media (min-width: 768px) {
@@ -100,17 +156,38 @@
       filter:blur(30px);
       transform:rotate(30deg);
       pointer-events:none;
+      animation: glow-pulse 4s ease-in-out infinite;
     }
 
     .profile-photo{
-      width:140px;
-      height:140px;
+      width:120px;
+      height:120px;
       border-radius:14px;
       overflow:hidden;
       margin:0 auto 16px;
       border:6px solid rgba(255,255,255,0.04);
       box-shadow: 0 12px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
       transition: transform 0.5s cubic-bezier(.2,.9,.3,1);
+      position: relative;
+    }
+    
+    .profile-photo::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--accent), transparent, var(--accent));
+      border-radius: 16px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .profile-photo:hover::before {
+      opacity: 1;
+      animation: border-glow 2s linear infinite;
     }
     
     @media (min-width: 768px) {
@@ -121,15 +198,19 @@
       }
     }
     
-    .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .profile-photo img{width:100%;height:100%;object-fit:cover;display:block; border-radius: 8px;}
 
     .profile-photo:hover{transform: scale(1.04) rotate(-1deg)}
 
     h1{
-      font-size:24px;
+      font-size:22px;
       margin:8px 0 4px;
       text-align:center;
       letter-spacing:0.4px;
+      background: linear-gradient(90deg, #ffffff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     @media (min-width: 768px) {
@@ -144,6 +225,7 @@
       color:rgba(230,238,246,0.72);
       margin-bottom:12px;
       line-height:1.4;
+      padding: 0 10px;
     }
 
     .badges{
@@ -158,9 +240,15 @@
       border-radius:999px;
       background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.04);
-      font-size:13px;
+      font-size:12px;
       color:var(--accent);
       box-shadow: 0 4px 10px rgba(6,182,212,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(6,182,212,0.1);
     }
 
     .stats{
@@ -177,22 +265,42 @@
       text-align:center;
       border:1px solid rgba(255,255,255,0.03);
       transition:transform .35s cubic-bezier(.2,.9,.3,1);
+      position: relative;
+      overflow: hidden;
     }
-    .stat strong{display:block;font-size:18px}
-    .stat small{display:block;color:rgba(230,238,246,0.6);margin-top:6px;font-size:12px}
+    
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .stat:hover::before {
+      left: 100%;
+    }
+    
+    .stat strong{display:block;font-size:16px}
+    .stat small{display:block;color:rgba(230,238,246,0.6);margin-top:6px;font-size:11px}
     .stat:hover{transform:translateY(-6px)}
 
-    /* Right content area */
+    /* Right content area - Mobile optimized */
     .right{
       display:flex;
       flex-direction:column;
-      gap:18px;
+      gap:15px;
       order: 2; /* Show first on mobile */
+      width: 100%;
     }
 
     @media (min-width: 768px) {
       .right {
         order: unset;
+        gap:18px;
       }
     }
 
@@ -203,6 +311,14 @@
       border:1px solid rgba(255,255,255,0.04);
       box-shadow:var(--card-shadow);
       overflow:hidden;
+      position: relative;
+      transition: all 0.5s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .hero:hover {
+      box-shadow: 0 20px 40px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.05);
     }
     
     @media (min-width: 768px) {
@@ -231,20 +347,22 @@
       flex-direction:column;
       gap:6px;
     }
-    .title-block h2{font-size:20px;margin:0}
-    .title-block p{margin:0;color:rgba(230,238,246,0.7);font-size:13px}
+    .title-block h2{font-size:18px;margin:0; line-height: 1.3;}
+    .title-block p{margin:0;color:rgba(230,238,246,0.7);font-size:13px; line-height: 1.4;}
 
     .cta-buttons{
       display:flex;
       gap:10px;
       align-items:center;
       flex-wrap: wrap;
+      justify-content: center;
     }
     
     @media (min-width: 768px) {
       .cta-buttons {
         flex-wrap: nowrap;
         gap:12px;
+        justify-content: flex-start;
       }
     }
     
@@ -261,6 +379,23 @@
       min-width: 140px;
       text-align: center;
       flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
     }
     
     @media (min-width: 768px) {
@@ -279,11 +414,11 @@
     }
     .btn:hover{transform:translateY(-4px)}
 
-    /* Animated skill bars + cards */
+    /* Animated skill bars + cards - Mobile optimized */
     .skills{
       display:grid;
       grid-template-columns:1fr;
-      gap:14px;
+      gap:12px;
       margin-top:18px;
     }
     
@@ -299,14 +434,56 @@
       background:var(--glass-2);
       border:1px solid rgba(255,255,255,0.03);
       overflow:hidden;
+      transition: all 0.3s ease;
+      position: relative;
     }
+    
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(6,182,212,0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .skill-card:hover::before {
+      opacity: 1;
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(2,6,23,0.5);
+    }
+    
     .skill-card h4{margin:0 0 8px;font-size:14px}
     .bar{
       height:10px;
       border-radius:999px;
       background:rgba(255,255,255,0.06);
       overflow:hidden;
+      position: relative;
     }
+    
+    .bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .bar:hover::after {
+      opacity: 1;
+    }
+    
     .bar > i{
       display:block;
       height:100%;
@@ -314,9 +491,22 @@
       background:linear-gradient(90deg,var(--accent), rgba(56,189,248,0.8));
       border-radius:999px;
       transition: width 1.3s cubic-bezier(.2,.9,.3,1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bar > i::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 2s infinite;
     }
 
-    /* Projects carousel */
+    /* Projects carousel - Mobile optimized */
     .projects{
       margin-top:18px;
       display:flex;
@@ -325,6 +515,7 @@
       padding-bottom:6px;
       scrollbar-width: thin;
       scrollbar-color: var(--accent) transparent;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
     
     .projects::-webkit-scrollbar {
@@ -349,17 +540,42 @@
       box-shadow: 0 8px 20px rgba(2,6,23,0.5);
       transform:translateY(0);
       transition:transform .3s ease;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
     }
+    
+    .project::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(6,182,212,0.03), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .project:hover::before {
+      opacity: 1;
+    }
+    
     .project:hover{transform:translateY(-8px)}
     .project img{
       width:100%;
       height:140px;
       object-fit:cover;
       border-radius:8px;
-      margin-bottom:10px
+      margin-bottom:10px;
+      transition: transform 0.5s ease;
+    }
+    
+    .project:hover img {
+      transform: scale(1.05);
     }
 
-    /* Footer contact */
+    /* Footer contact - Mobile optimized */
     .contact{
       display:flex;
       flex-direction: column;
@@ -370,6 +586,13 @@
       background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
       border:1px solid rgba(255,255,255,0.03);
       text-align: center;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .contact:hover {
+      box-shadow: 0 10px 30px rgba(2,6,23,0.5);
     }
     
     @media (min-width: 768px) {
@@ -396,6 +619,24 @@
       cursor:pointer;
       font-size:16px;
       transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(6,182,212,0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .icon:hover::before {
+      opacity: 1;
     }
     
     .icon:hover {
@@ -411,6 +652,25 @@
       font-weight:600;
       border:1px solid rgba(255,255,255,0.03);
       box-shadow: 0 6px 20px rgba(2,6,23,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .typing::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+    
+    .typing:hover::after {
+      transform: scaleX(1);
     }
 
     /* subtle floating animation */
@@ -425,13 +685,127 @@
     .reveal{opacity:0;transform:translateY(10px);transition:all .8s ease;will-change:transform,opacity}
     .reveal.show{opacity:1;transform:none}
     
+    /* New Animations - Optimized for mobile */
+    @keyframes float-shapes {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      33% {
+        transform: translate(30px, -50px) rotate(120deg);
+      }
+      66% {
+        transform: translate(-20px, 20px) rotate(240deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
+    }
+    
+    @keyframes grid-move {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+    
+    @keyframes glow-pulse {
+      0%, 100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+    
+    @keyframes border-glow {
+      0%, 100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    /* New Lighting Effects */
+    .light-beam {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.03), transparent);
+      animation: light-sweep 8s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes light-sweep {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .pulse-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+      }
+    }
+    
+    /* Particle trail effect - Optimized for mobile */
+    .particle-trail {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      animation: particle-fade 1s ease-out forwards;
+    }
+    
+    @keyframes particle-fade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+    
     /* Mobile menu for small screens */
     .mobile-menu-btn {
       display: none;
       position: fixed;
       top: 20px;
-      left: 30px;
-      right: 20px;
+      left: 20px;
       z-index: 1000;
       background: var(--accent);
       color: #051020;
@@ -442,6 +816,13 @@
       font-size: 20px;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(6,182,212,0.3);
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .mobile-menu-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(6,182,212,0.5);
     }
     
     /* Mobile menu */
@@ -449,13 +830,15 @@
       position: fixed;
       top: 0;
       right: -300px;
-      width: 300px;
+      width: 280px;
       height: 100%;
       background: var(--bg1);
       z-index: 999;
       transition: right 0.3s ease;
       padding: 80px 20px 20px;
       box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      overflow-y: auto;
     }
     
     .mobile-menu.active {
@@ -475,9 +858,26 @@
       text-decoration: none;
       font-size: 18px;
       display: block;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .mobile-menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .mobile-menu a:hover::before {
+      left: 100%;
     }
     
     .mobile-menu a:hover {
@@ -493,6 +893,16 @@
       color: #e6eef6;
       font-size: 24px;
       cursor: pointer;
+      transition: transform 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .close-menu:hover {
+      transform: scale(1.1);
     }
     
     @media (max-width: 767px) {
@@ -503,10 +913,36 @@
       }
       
       .card {
-        margin-top: 60px;
+        margin-top: 70px;
+      }
+
+      .page {
+        padding: 10px;
+      }
+
+      .wrap {
+        gap: 12px;
+      }
+
+      .hero {
+        padding: 15px;
+      }
+
+      .project {
+        min-width: 240px;
+      }
+
+      .btn {
+        min-width: 120px;
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      .contact {
+        padding: 15px;
       }
     }
-    
+
     /* Modal styles */
     .modal {
       display: none;
@@ -519,6 +955,9 @@
       z-index: 1000;
       align-items: center;
       justify-content: center;
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      box-sizing: border-box;
     }
     
     .modal.active {
@@ -529,11 +968,25 @@
       background: linear-gradient(180deg, var(--bg1), var(--bg2));
       border-radius: 18px;
       padding: 20px;
-      max-width: 90%;
+      max-width: 100%;
       max-height: 90%;
       overflow: auto;
       position: relative;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      animation: modal-appear 0.3s ease-out;
+      width: 100%;
+    }
+    
+    @keyframes modal-appear {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
     
     .close-modal {
@@ -545,6 +998,16 @@
       color: #e6eef6;
       font-size: 24px;
       cursor: pointer;
+      transition: transform 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .close-modal:hover {
+      transform: scale(1.1);
     }
     
     .modal-image {
@@ -552,6 +1015,7 @@
       height: auto;
       border-radius: 8px;
       margin-bottom: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     
     /* Form styles */
@@ -568,16 +1032,26 @@
     .form-group input,
     .form-group textarea {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.05);
       color: #e6eef6;
       font-family: inherit;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      font-size: 16px; /* Better for mobile */
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(6,182,212,0.2);
     }
     
     .form-group textarea {
-      min-height: 100px;
+      min-height: 120px;
       resize: vertical;
     }
     
@@ -591,17 +1065,23 @@
       gap: 15px;
       flex-wrap: wrap;
       margin-top: 20px;
+      justify-content: center;
     }
     
     .certifications-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 15px;
       margin-top: 20px;
     }
     
     .certification-item {
       text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .certification-item:hover {
+      transform: translateY(-5px);
     }
     
     .certification-item img {
@@ -609,16 +1089,55 @@
       height: auto;
       border-radius: 8px;
       cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    .certification-item img:hover {
+      transform: scale(1.05);
     }
     
     .back-button {
       margin-top: 20px;
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) {
+      .card:hover {
+        transform: none;
+      }
+      
+      .stat:hover {
+        transform: none;
+      }
+      
+      .btn:hover {
+        transform: none;
+      }
+      
+      .skill-card:hover {
+        transform: none;
+      }
+      
+      .project:hover {
+        transform: none;
+      }
+      
+      .icon:hover {
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
 
 <canvas id="bg-canvas" width="1600" height="900"></canvas>
+
+<!-- New VFX Elements -->
+<div class="vfx-container" id="vfxContainer">
+  <div class="neon-grid"></div>
+  <div class="light-beam"></div>
+</div>
 
 <button class="mobile-menu-btn" id="menuBtn">☰</button>
 
@@ -639,6 +1158,8 @@
     <!-- LEFT: Profile card -->
     <div class="card">
       <div class="glow-ring"></div>
+      <div class="pulse-dot" style="top: 30px; left: 30px;"></div>
+      <div class="pulse-dot" style="bottom: 40px; right: 40px;"></div>
 
       <div class="profile-photo float-slow" title="Amit Kumar">
         <!-- Put image in same folder and name it profile.jpg -->
@@ -654,7 +1175,7 @@
         <div class="badge">UI/UX Enthusiast</div>
       </div>
 
-      <div style="text-align:center;color:rgba(230,238,246,0.7);font-size:13px; line-height: 1.5">
+      <div style="text-align:center;color:rgba(230,238,246,0.7);font-size:13px; line-height: 1.5; padding: 0 5px;">
         Passionate about clean interfaces, animations, and responsive design.
       </div>
 
@@ -874,30 +1395,58 @@
 
 <script>
   /* ----------------------------
+     Mobile Performance Optimizations
+     ---------------------------- */
+  // Reduce animations on low-end devices
+  const isLowEndDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+      (navigator.hardwareConcurrency < 4 || 
+       (navigator.deviceMemory && navigator.deviceMemory < 4));
+  };
+
+  // Initialize with performance settings
+  if (isLowEndDevice()) {
+    document.documentElement.style.setProperty('--card-shadow', '0 5px 15px rgba(2,6,23,0.4)');
+  }
+
+  /* ----------------------------
      Particle background (canvas)
      Lightweight, GPU-friendly
      ---------------------------- */
   (function(){
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
+    
     function resize(){
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
+      canvas.width = Math.min(innerWidth, 1200); // Limit for performance
+      canvas.height = Math.min(innerHeight, 800);
     }
-    resize(); window.addEventListener('resize',resize);
+    
+    resize(); 
+    
+    // Throttle resize for mobile performance
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resize, 250);
+    });
+    
     const particles = [];
-    const count = Math.max(30, Math.floor((innerWidth*innerHeight)/80000));
+    // Reduce particle count on mobile
+    const count = isLowEndDevice() ? 15 : Math.max(20, Math.floor((innerWidth*innerHeight)/100000));
+    
     for(let i=0;i<count;i++){
       particles.push({
         x: Math.random()*canvas.width,
         y: Math.random()*canvas.height,
-        r: 1 + Math.random()*3,
-        vx: (Math.random()-0.5)/2,
-        vy: (Math.random()-0.5)/2,
+        r: 1 + Math.random()*2, // Smaller particles
+        vx: (Math.random()-0.5)/3, // Slower movement
+        vy: (Math.random()-0.5)/3,
         hue: 180 + Math.random()*60,
         life: 30 + Math.random()*80
       });
     }
+    
     function draw(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       for(let p of particles){
@@ -910,17 +1459,94 @@
         if(p.y > canvas.height +20) p.y = -20;
 
         ctx.beginPath();
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*12);
-        g.addColorStop(0, `hsla(${p.hue},80%,60%,0.08)`);
-        g.addColorStop(0.4, `hsla(${p.hue},70%,55%,0.04)`);
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*8); // Smaller glow
+        g.addColorStop(0, `hsla(${p.hue},80%,60%,0.06)`); // Lower opacity
+        g.addColorStop(0.4, `hsla(${p.hue},70%,55%,0.03)`);
         g.addColorStop(1, `rgba(2,6,23,0)`);
         ctx.fillStyle = g;
-        ctx.fillRect(p.x - p.r*12, p.y - p.r*12, p.r*24, p.r*24);
+        ctx.fillRect(p.x - p.r*8, p.y - p.r*8, p.r*16, p.r*16);
       }
       requestAnimationFrame(draw);
     }
-    draw();
+    
+    // Use setTimeout for lower frame rate on mobile
+    if (isLowEndDevice()) {
+      setInterval(draw, 1000/30); // 30 FPS
+    } else {
+      draw();
+    }
   })();
+
+  /* ----------------------------
+     Enhanced VFX Elements - Mobile Optimized
+     ---------------------------- */
+  (function(){
+    const vfxContainer = document.getElementById('vfxContainer');
+    
+    // Reduce floating shapes on mobile
+    const shapeCount = isLowEndDevice() ? 4 : 8;
+    
+    for(let i = 0; i < shapeCount; i++) {
+      const shape = document.createElement('div');
+      shape.classList.add('floating-shape');
+      
+      const size = Math.random() * 150 + 30; // Smaller shapes
+      const posX = Math.random() * 100;
+      const posY = Math.random() * 100;
+      const delay = Math.random() * 10;
+      const duration = Math.random() * 40 + 20; // Slower animation
+      
+      shape.style.width = `${size}px`;
+      shape.style.height = `${size}px`;
+      shape.style.left = `${posX}%`;
+      shape.style.top = `${posY}%`;
+      shape.style.animationDelay = `${delay}s`;
+      shape.style.animationDuration = `${duration}s`;
+      
+      vfxContainer.appendChild(shape);
+    }
+  })();
+
+  /* ----------------------------
+     Particle Trail Effect on Mouse Move - Mobile Optimized
+     ---------------------------- */
+  let lastTouchTime = 0;
+  const touchParticleCooldown = 100; // ms
+  
+  document.addEventListener('mousemove', function(e) {
+    if (isLowEndDevice()) return; // Disable on low-end devices
+    
+    const particle = document.createElement('div');
+    particle.classList.add('particle-trail');
+    particle.style.left = e.pageX + 'px';
+    particle.style.top = e.pageY + 'px';
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+      particle.remove();
+    }, 1000);
+  });
+
+  // Touch support for mobile
+  document.addEventListener('touchmove', function(e) {
+    const now = Date.now();
+    if (now - lastTouchTime < touchParticleCooldown) return;
+    lastTouchTime = now;
+    
+    const touch = e.touches[0];
+    const particle = document.createElement('div');
+    particle.classList.add('particle-trail');
+    particle.style.left = touch.pageX + 'px';
+    particle.style.top = touch.pageY + 'px';
+    particle.style.background = 'var(--accent)';
+    particle.style.width = '6px';
+    particle.style.height = '6px';
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+      particle.remove();
+    }, 800);
+  }, { passive: true });
 
   /* ----------------------------
      Simple typed effect (loop)
@@ -929,6 +1555,7 @@
     const texts = ["HTML, CSS, JavaScript", "UI / UX Designer", "Frontend Developer"];
     const el = document.getElementById('typed');
     let t = 0, i = 0, forward = true;
+    
     function tick(){
       const str = texts[t];
       if(forward){
@@ -942,15 +1569,20 @@
       }
       setTimeout(tick,80);
     }
-    tick();
+    
+    // Start typing after a short delay
+    setTimeout(tick, 1000);
   })();
 
   /* ----------------------------
-     Reveal on scroll & skill bars anim
+     Reveal on scroll & skill bars anim - Mobile Optimized
      ---------------------------- */
   (function(){
     const reveals = Array.from(document.querySelectorAll('.reveal'));
     const bars = Array.from(document.querySelectorAll('.bar > i'));
+    
+    // Throttle scroll for performance
+    let scrollTimeout;
     function check(){
       const H = innerHeight;
       for(const el of reveals){
@@ -968,13 +1600,18 @@
         }
       }
     }
-    addEventListener('scroll', check);
-    addEventListener('resize', check);
-    setTimeout(check, 300);
+    
+    addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(check, 50);
+    }, { passive: true });
+    
+    addEventListener('resize', check, { passive: true });
+    setTimeout(check, 500);
   })();
 
   /* ----------------------------
-     Page Navigation
+     Page Navigation - Mobile Optimized
      ---------------------------- */
   function showPage(page) {
     // Hide all pages
@@ -987,10 +1624,13 @@
     
     // Close mobile menu if open
     document.getElementById('mobileMenu').classList.remove('active');
+    
+    // Scroll to top on page change
+    window.scrollTo(0, 0);
   }
 
   /* ----------------------------
-     Mobile Menu
+     Mobile Menu - Enhanced for Touch
      ---------------------------- */
   document.getElementById('menuBtn').addEventListener('click', function() {
     document.getElementById('mobileMenu').classList.add('active');
@@ -1000,40 +1640,30 @@
     document.getElementById('mobileMenu').classList.remove('active');
   });
 
-  /* ----------------------------
-     Contact Form
-     ---------------------------- */
-  function showContactForm() {
-    document.getElementById('contactModal').classList.add('active');
-    document.getElementById('mobileMenu').classList.remove('active');
-  }
-
-  function closeContactForm() {
-    document.getElementById('contactModal').classList.remove('active');
-  }
-
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuBtn = document.getElementById('menuBtn');
     
-    // Get form data
-    const formData = {
-      name: document.getElementById('name').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      message: document.getElementById('message').value,
-      timestamp: new Date().toISOString()
-    };
-    
-    // In a real application, you would send this data to a server
-    // For this demo, we'll just save it to localStorage
-    let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-    submissions.push(formData);
-    localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-    
-    alert('Thank you for your message! I will get back to you soon.');
-    closeContactForm();
-    document.getElementById('contactForm').reset();
+    if (mobileMenu.classList.contains('active') && 
+        !mobileMenu.contains(e.target) && 
+        e.target !== menuBtn) {
+      mobileMenu.classList.remove('active');
+    }
   });
+
+  // Swipe to close menu on mobile
+  let touchStartX = 0;
+  document.getElementById('mobileMenu').addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  document.getElementById('mobileMenu').addEventListener('touchend', function(e) {
+    const touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) { // Swipe left
+      this.classList.remove('active');
+    }
+  }, { passive: true });
 
   /* ----------------------------
      Image Modal for Certifications
@@ -1042,10 +1672,14 @@
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalImage').src = imageUrl;
     document.getElementById('imageModal').classList.add('active');
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
   }
 
   function closeImageModal() {
     document.getElementById('imageModal').classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   function showCertifications() {
@@ -1053,10 +1687,18 @@
     certSection.style.display = certSection.style.display === 'none' ? 'block' : 'none';
   }
 
-     /*
+  /* ----------------------------
      Tiny helpers
      ---------------------------- */
   function openLink(u){ window.open(u,'_blank') }
+
+  // Close modal on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeImageModal();
+      document.getElementById('mobileMenu').classList.remove('active');
+    }
+  });
 
   /* Small keyboard easter: press "g" to toggle a visual glow (for fun) */
   (function(){
@@ -1068,11 +1710,26 @@
       }
     });
   })();
+
+  /* ----------------------------
+     Mobile-specific optimizations
+     ---------------------------- */
+  // Prevent zoom on double tap (iOS)
+  document.addEventListener('touchstart', function(e) {
+    if (e.touches.length > 1) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Improve touch responsiveness
+  document.addEventListener('touchstart', function() {}, { passive: true });
+
+  // Load critical content first
+  window.addEventListener('load', function() {
+    // Add loaded class for any post-load animations
+    document.body.classList.add('loaded');
+  });
 </script>
 
 </body>
 </html>
-
-
-
-
