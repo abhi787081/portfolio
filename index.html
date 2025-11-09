@@ -7,6 +7,8 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root{
@@ -18,6 +20,8 @@
       --glass-2: rgba(255,255,255,0.03);
       --card-shadow: 0 10px 30px rgba(2,6,23,0.6);
       --neon-glow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent);
+      --green-accent: #10b981;
+      --red-accent: #ef4444;
     }
     *{box-sizing:border-box; margin:0; padding:0}
     html,body{height:100%; overflow-x:hidden}
@@ -29,7 +33,6 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.5;
-      /* Prevent horizontal scroll on mobile */
       overflow-x: hidden;
       width: 100%;
     }
@@ -48,40 +51,6 @@
       filter:blur(12px) saturate(120%);
       opacity:0.7;
       pointer-events:none;
-    }
-
-    /* New VFX Elements - Optimized for mobile */
-    .vfx-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .floating-shape {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-      opacity: 0.1;
-      filter: blur(20px);
-      animation: float-shapes 20s infinite linear;
-    }
-
-    .neon-grid {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(6,182,212,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(6,182,212,0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: grid-move 40s infinite linear;
     }
 
     /* Mobile-first page layout */
@@ -127,7 +96,7 @@
       position:relative;
       overflow:hidden;
       backdrop-filter: blur(6px) saturate(120%);
-      order: 1; /* Show second on mobile */
+      order: 1;
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       width: 100%;
       box-sizing: border-box;
@@ -169,25 +138,6 @@
       box-shadow: 0 12px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
       transition: transform 0.5s cubic-bezier(.2,.9,.3,1);
       position: relative;
-    }
-    
-    .profile-photo::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--accent), transparent, var(--accent));
-      border-radius: 16px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    .profile-photo:hover::before {
-      opacity: 1;
-      animation: border-glow 2s linear infinite;
     }
     
     @media (min-width: 768px) {
@@ -269,21 +219,6 @@
       overflow: hidden;
     }
     
-    .stat::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.1), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .stat:hover::before {
-      left: 100%;
-    }
-    
     .stat strong{display:block;font-size:16px}
     .stat small{display:block;color:rgba(230,238,246,0.6);margin-top:6px;font-size:11px}
     .stat:hover{transform:translateY(-6px)}
@@ -293,7 +228,7 @@
       display:flex;
       flex-direction:column;
       gap:15px;
-      order: 2; /* Show first on mobile */
+      order: 2;
       width: 100%;
     }
 
@@ -319,6 +254,7 @@
     
     .hero:hover {
       box-shadow: 0 20px 40px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.05);
+      transform: translateY(-5px);
     }
     
     @media (min-width: 768px) {
@@ -383,21 +319,6 @@
       overflow: hidden;
     }
     
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .btn:hover::before {
-      left: 100%;
-    }
-    
     @media (min-width: 768px) {
       .btn {
         padding:10px 14px;
@@ -412,6 +333,60 @@
       box-shadow: 0 8px 30px rgba(6,182,212,0.14);
       border: none;
     }
+
+    /* NEW: Green Animated Button */
+    .btn.green {
+      background: linear-gradient(90deg, var(--green-accent), #2de52d);
+      color: #051020;
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+      border: none;
+      animation: green-pulse 2s infinite;
+    }
+
+    @keyframes green-pulse {
+      0% {
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+      }
+      50% {
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6), 0 0 15px rgba(16, 185, 129, 0.4);
+      }
+      100% {
+        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+      }
+    }
+
+    /* NEW: Red 3D Button for Private Project */
+    .btn.red-3d {
+      background: linear-gradient(135deg, var(--red-accent), #dc2626);
+      color: #ffffff;
+      border: none;
+      box-shadow: 
+        0 8px 30px rgba(239, 68, 68, 0.4),
+        0 0 0 1px rgba(255,255,255,0.1),
+        inset 0 2px 0 rgba(255,255,255,0.2);
+      transform: translateY(0);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      animation: red-glow 3s infinite alternate;
+    }
+
+    @keyframes red-glow {
+      0% {
+        box-shadow: 
+          0 8px 30px rgba(239, 68, 68, 0.4),
+          0 0 0 1px rgba(255,255,255,0.1),
+          inset 0 2px 0 rgba(255,255,255,0.2);
+      }
+      100% {
+        box-shadow: 
+          0 8px 30px rgba(239, 68, 68, 0.6),
+          0 0 15px rgba(239, 68, 68, 0.4),
+          0 0 0 1px rgba(255,255,255,0.1),
+          inset 0 2px 0 rgba(255,255,255,0.2);
+      }
+    }
+    
     .btn:hover{transform:translateY(-4px)}
 
     /* Animated skill bars + cards - Mobile optimized */
@@ -438,22 +413,6 @@
       position: relative;
     }
     
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(6,182,212,0.05), transparent);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    .skill-card:hover::before {
-      opacity: 1;
-    }
-    
     .skill-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(2,6,23,0.5);
@@ -468,22 +427,6 @@
       position: relative;
     }
     
-    .bar::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    .bar:hover::after {
-      opacity: 1;
-    }
-    
     .bar > i{
       display:block;
       height:100%;
@@ -493,17 +436,6 @@
       transition: width 1.3s cubic-bezier(.2,.9,.3,1);
       position: relative;
       overflow: hidden;
-    }
-    
-    .bar > i::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shimmer 2s infinite;
     }
 
     /* Projects carousel - Mobile optimized */
@@ -515,7 +447,7 @@
       padding-bottom:6px;
       scrollbar-width: thin;
       scrollbar-color: var(--accent) transparent;
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
     }
     
     .projects::-webkit-scrollbar {
@@ -536,29 +468,13 @@
       border-radius:12px;
       padding:14px;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 8px 20px rgba(2,6,23,0.5);
+      border:5px solid rgba(255,255,255,0.03);
+      box-shadow: 5 8px 50px rgba(2,6,23,0.5);
       transform:translateY(0);
       transition:transform .3s ease;
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
-    }
-    
-    .project::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(6,182,212,0.03), transparent);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    .project:hover::before {
-      opacity: 1;
     }
     
     .project:hover{transform:translateY(-8px)}
@@ -623,24 +539,29 @@
       overflow: hidden;
     }
     
-    .icon::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(6,182,212,0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .icon:hover::before {
-      opacity: 1;
-    }
-    
     .icon:hover {
       transform: scale(1.1);
+    }
+
+    /* NEW: Colorful Social Icons */
+    .icon.email {
+      background: linear-gradient(135deg, #ea4335, #d93025);
+      color: white;
+    }
+    
+    .icon.facebook {
+      background: linear-gradient(135deg, #1877f2, #0d6efd);
+      color: white;
+    }
+    
+    .icon.linkedin {
+      background: linear-gradient(135deg, #0a66c2, #004182);
+      color: white;
+    }
+    
+    .icon.instagram {
+      background: linear-gradient(135deg, #e4405f, #c13584, #833ab4);
+      color: white;
     }
 
     /* Cool typing underline effect */
@@ -652,25 +573,6 @@
       font-weight:600;
       border:1px solid rgba(255,255,255,0.03);
       box-shadow: 0 6px 20px rgba(2,6,23,0.35);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .typing::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.5s ease;
-    }
-    
-    .typing:hover::after {
-      transform: scaleX(1);
     }
 
     /* subtle floating animation */
@@ -682,34 +584,10 @@
     }
 
     /* cool reveal */
-    .reveal{opacity:0;transform:translateY(10px);transition:all .8s ease;will-change:transform,opacity}
+    .reveal{opacity:0;transform:translateY(10px);transition:all .8s ease;}
     .reveal.show{opacity:1;transform:none}
     
-    /* New Animations - Optimized for mobile */
-    @keyframes float-shapes {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      33% {
-        transform: translate(30px, -50px) rotate(120deg);
-      }
-      66% {
-        transform: translate(-20px, 20px) rotate(240deg);
-      }
-      100% {
-        transform: translate(0, 0) rotate(360deg);
-      }
-    }
-    
-    @keyframes grid-move {
-      0% {
-        transform: translate(0, 0);
-      }
-      100% {
-        transform: translate(50px, 50px);
-      }
-    }
-    
+    /* Animations */
     @keyframes glow-pulse {
       0%, 100% {
         opacity: 0.5;
@@ -718,88 +596,7 @@
         opacity: 0.8;
       }
     }
-    
-    @keyframes border-glow {
-      0%, 100% {
-        opacity: 0.5;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-    
-    @keyframes shimmer {
-      0% {
-        left: -100%;
-      }
-      100% {
-        left: 100%;
-      }
-    }
 
-    /* New Lighting Effects */
-    .light-beam {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.03), transparent);
-      animation: light-sweep 8s infinite linear;
-      pointer-events: none;
-    }
-
-    @keyframes light-sweep {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
-        transform: translateX(100%);
-      }
-    }
-
-    .pulse-dot {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.5);
-        opacity: 0.7;
-      }
-    }
-    
-    /* Particle trail effect - Optimized for mobile */
-    .particle-trail {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0;
-      animation: particle-fade 1s ease-out forwards;
-    }
-    
-    @keyframes particle-fade {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0);
-      }
-    }
-    
     /* Mobile menu for small screens */
     .mobile-menu-btn {
       display: none;
@@ -861,23 +658,6 @@
       padding: 12px;
       border-radius: 8px;
       transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .mobile-menu a::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(6,182,212,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .mobile-menu a:hover::before {
-      left: 100%;
     }
     
     .mobile-menu a:hover {
@@ -940,6 +720,11 @@
 
       .contact {
         padding: 15px;
+      }
+
+      .resume-buttons {
+        flex-direction: column;
+        align-items: center;
       }
     }
 
@@ -1018,43 +803,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     
-    /* Form styles */
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 14px;
-    }
-    
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.05);
-      color: #e6eef6;
-      font-family: inherit;
-      transition: all 0.3s ease;
-      box-sizing: border-box;
-      font-size: 16px; /* Better for mobile */
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(6,182,212,0.2);
-    }
-    
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-    
     /* Resume page styles */
     .resume-section {
       margin-bottom: 30px;
@@ -1127,17 +875,241 @@
         transform: none;
       }
     }
+
+    /* NEW: Advanced loading animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(6,182,212,0.2);
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loader-text {
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    /* NEW: Password Modal Styles */
+    .password-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2,17,36,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .password-modal.active {
+      display: flex;
+    }
+    
+    .password-content {
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      border-radius: 18px;
+      padding: 25px;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      animation: modal-appear 0.3s ease-out;
+      text-align: center;
+    }
+    
+    .password-content h3 {
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+    
+    .password-content p {
+      margin-bottom: 20px;
+      color: rgba(230,238,246,0.7);
+      font-size: 14px;
+    }
+    
+    .password-input {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #e6eef6;
+      font-family: inherit;
+      font-size: 16px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    
+    .password-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(6,182,212,0.2);
+    }
+    
+    .password-error {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    
+    .password-error.show {
+      display: block;
+    }
+
+    /* NEW: Private Project Cards Styles - UPDATED & SIMPLIFIED */
+    .private-project-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 0;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(6px) saturate(120%);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      height: 280px; /* Further reduced */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .private-project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.1);
+    }
+
+    .project-image-container {
+      height: 140px; /* Reduced */
+      overflow: hidden;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .project-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project-image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 12px; /* Reduced */
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-content h3 {
+      margin: 0 0 8px; /* Reduced */
+      color: var(--accent);
+      font-size: 16px; /* Reduced */
+    }
+
+    .project-content p {
+      color: rgba(230,238,246,0.7);
+      font-size: 12px; /* Reduced */
+      margin-bottom: 10px; /* Reduced */
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    .tech-tags {
+      display: flex;
+      gap: 4px; /* Reduced */
+      flex-wrap: wrap;
+      margin-bottom: 10px; /* Reduced */
+    }
+
+    .tech-tags span {
+      background: rgba(6,182,212,0.1);
+      color: var(--accent);
+      padding: 2px 6px; /* Reduced */
+      border-radius: 20px;
+      font-size: 10px; /* Reduced */
+    }
+
+    .project-actions {
+      padding: 0 12px 12px; /* Reduced */
+    }
+
+    .enter-btn {
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Responsive adjustments for private project cards */
+    @media (min-width: 768px) {
+      .private-projects-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .private-project-card {
+        height: auto;
+        min-height: 280px;
+      }
+    }
   </style>
 </head>
 <body>
 
-<canvas id="bg-canvas" width="1600" height="900"></canvas>
-
-<!-- New VFX Elements -->
-<div class="vfx-container" id="vfxContainer">
-  <div class="neon-grid"></div>
-  <div class="light-beam"></div>
+<!-- Advanced Loading Animation -->
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Loading Portfolio...</div>
+  </div>
 </div>
+
+<canvas id="bg-canvas" width="1600" height="900"></canvas>
 
 <button class="mobile-menu-btn" id="menuBtn">☰</button>
 
@@ -1158,11 +1130,8 @@
     <!-- LEFT: Profile card -->
     <div class="card">
       <div class="glow-ring"></div>
-      <div class="pulse-dot" style="top: 30px; left: 30px;"></div>
-      <div class="pulse-dot" style="bottom: 40px; right: 40px;"></div>
 
       <div class="profile-photo float-slow" title="Amit Kumar">
-        <!-- Put image in same folder and name it profile.jpg -->
         <img src="this is my emage.jpg" alt="Amit Kumar photo">
       </div>
 
@@ -1191,7 +1160,7 @@
       </div>
 
       <div style="margin-top:18px;text-align:center">
-       <a href="https://abhi787081.github.io/form-filling/"><button class="btn primary" onclick="showContactForm()">Contact</button></a>
+       <a href="https://abhi787081.github.io/form-filling/"><button class="btn green">Contact</button></a>
       </div>
     </div>
 
@@ -1209,7 +1178,7 @@
           </div>
 
           <div class="cta-buttons">
-            <button class="btn" onclick="showPage('resume')">My information </button>
+            <button class="btn green" onclick="showPage('resume')">My information </button>
             <button class="btn primary" onclick="showPage('projects')">See Projects</button>
           </div>
         </div>
@@ -1236,11 +1205,11 @@
 
         <div id="projects" class="projects" style="margin-top:18px">
           <div class="project reveal">
-            <img src="https://www.cxoinsightme.com/wp-content/uploads/2020/07/AI_shutterstock_1722492775-scaled.jpg" alt="proj1">
-            <h4>wait for update my project</h4>
+            <img src="convertpng.png" alt="proj1">
+            <h4>Png to pdf convertor website</h4>
             <p style="margin:6px 0 10px;color:rgba(230,238,246,0.75);font-size:13px">AI-assisted.</p>
             <div style="display:flex;gap:8px">
-              <button class="btn" onclick="alert('Demo not linked yet')">Preview</button>
+              <button class="btn" onclick="alert('coconut.page.gd')">OPEN</button>
             </div>
           </div>
 
@@ -1271,10 +1240,18 @@
         </div>
 
         <div class="socials">
-          <div class="icon" onclick="openLink('mailto:abhi787081@gmail.com')" title="Email">✉️</div>
-          <div class="icon" onclick="openLink('https://www.facebook.com/share/17NSukWZvf/')" title="facebook">fb</div>
-          <div class="icon" onclick="openLink('https://www.linkedin.com/in/amit-kumar-60037a319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')" title="LinkedIn">in</div>
-          <div class="icon" onclick="openLink('https://www.instagram.com/099e1dba6c5d?igsh=MThmOG02ZW82OWhzdQ==')" title="instagram">insta</div>
+          <div class="icon email" onclick="openLink('mailto:abhi787081@gmail.com')" title="Email">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="icon facebook" onclick="openLink('https://www.facebook.com/share/17NSukWZvf/')" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <div class="icon linkedin" onclick="openLink('https://www.linkedin.com/in/amit-kumar-60037a319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </div>
+          <div class="icon instagram" onclick="openLink('https://www.instagram.com/099e1dba6c5d?igsh=MThmOG02ZW82OWhzdQ==')" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </div>
         </div>
       </div>
 
@@ -1289,11 +1266,11 @@
       <h1>My Projects</h1>
       <div class="projects" style="margin-top: 20px; flex-direction: column;">
         <div class="project">
-          <img src="https://via.placeholder.com/800x450/06b6d4/ffffff?text=Project+1" alt="proj1">
-          <h4>not available my project</h4>
+          <img src="convertpng.png" alt="proj1">
+          <h4>Png to pdf convertor website </h4>
           <p style="margin:6px 0 10px;color:rgba(230,238,246,0.75);font-size:13px">AI-assisted .</p>
           <div style="display:flex;gap:8px">
-            <button class="btn" onclick="alert('Demo not linked yet')">Preview</button>
+            <button class="btn" onclick="alert('coconut.page.gd')">Preview</button>
           </div>
         </div>
 
@@ -1347,6 +1324,7 @@
       
       <div class="resume-buttons">
         <button class="btn primary" onclick="showImageModal('First Semester Result', 'rseltcard.jpg')">My First Semester Result</button>
+        <button class="btn red-3d" onclick="showPasswordModal()">Private Project</button>
         <button class="btn primary" onclick="showImageModal('Resume', 'https://via.placeholder.com/600x800/06b6d4/ffffff?text=Resume')">My Resume</button>
         <button class="btn primary" onclick="showCertifications()">My (OL) Certifications</button>
       </div>
@@ -1384,6 +1362,65 @@
   </div>
 </div>
 
+<!-- Private Project Page -->
+<div class="page" id="privateProjectPage" style="display: none;">
+  <div class="wrap" style="max-width: 900px;">
+    <div class="card" style="width: 100%;">
+      <h1>Private Project</h1>
+      
+      <!-- NEW: Private Project Cards Section - UPDATED & SIMPLIFIED -->
+      <div class="private-projects-section" style="margin-top: 40px;">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent);"></h2>
+        
+        <div class="private-projects-grid" style="display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 30px;">
+          
+          <!-- Project Card 1 - UPDATED & SIMPLIFIED -->
+          <div class="private-project-card">
+            <div class="project-image-container">
+              <img src="galaxy.jpeg" alt="Project Alpha">
+            </div>
+            <div class="project-content">
+              <h3>Galaxy store</h3>
+              <p>Advanced galaxy store Get Premium APKs & Apps for Free!</p>
+              <div class="tech-tags">
+                <span>Apps</span>
+                <span>apk</span>
+                <span></span>
+              </div>
+            </div>
+            <div class="project-actions">
+            <div> <button class="btn green enter-btn" onclick="openLink('https://abhi787081.github.io/Dw-site/')">Enter Project</button></div>
+            </div>
+          </div>
+          
+          <!-- Project Card 2 - UPDATED & SIMPLIFIED -->
+          <div class="private-project-card">
+            <div class="project-image-container">
+              <img src="https://via.placeholder.com/600x400/10b981/ffffff?text=Project+Beta" alt="Project Beta">
+            </div>
+            <div class="project-content">
+              <h3>Project Beta</h3>
+              <p>Blockchain-based secure document verification system with decentralized storage and smart contracts.</p>
+              <div class="tech-tags">
+                <span>Solidity</span>
+                <span>Web3.js</span>
+                <span>IPFS</span>
+              </div>
+            </div>
+            <div class="project-actions">
+              <button class="btn green enter-btn">Enter Project</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Image Modal -->
 <div class="modal" id="imageModal">
   <div class="modal-content">
@@ -1393,20 +1430,87 @@
   </div>
 </div>
 
+<!-- NEW: Password Modal -->
+<div class="password-modal" id="passwordModal">
+  <div class="password-content">
+    <button class="close-modal" onclick="closePasswordModal()">×</button>
+    <h3>Private Project Access</h3>
+    <p>Please enter the password to view this project:</p>
+    <input type="password" class="password-input" id="passwordInput" placeholder="Enter password">
+    <div class="password-error" id="passwordError">Incorrect password. Please try again.</div>
+    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
+      <button class="btn" onclick="closePasswordModal()">Cancel</button>
+      <button class="btn primary" onclick="checkPassword()">Submit</button>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ----------------------------
-     Mobile Performance Optimizations
+     Advanced Loading System
      ---------------------------- */
-  // Reduce animations on low-end devices
-  const isLowEndDevice = () => {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
-      (navigator.hardwareConcurrency < 4 || 
-       (navigator.deviceMemory && navigator.deviceMemory < 4));
-  };
+  window.addEventListener('load', function() {
+    // Hide loader after content is loaded
+    setTimeout(function() {
+      document.getElementById('loader').classList.add('hidden');
+      
+      // Start animations after page is loaded
+      startAdvancedAnimations();
+    }, 1500);
+  });
 
-  // Initialize with performance settings
-  if (isLowEndDevice()) {
-    document.documentElement.style.setProperty('--card-shadow', '0 5px 15px rgba(2,6,23,0.4)');
+  /* ----------------------------
+     Advanced Animations
+     ---------------------------- */
+  function startAdvancedAnimations() {
+    // Add scroll-triggered animations
+    initScrollAnimations();
+    
+    // Initialize private project cards
+    initPrivateProjectCards();
+  }
+
+  /* ----------------------------
+     Scroll Animations
+     ---------------------------- */
+  function initScrollAnimations() {
+    const animatedElements = document.querySelectorAll('.reveal');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    animatedElements.forEach(el => observer.observe(el));
+  }
+
+  /* ----------------------------
+     Private Project Cards Functionality - UPDATED & SIMPLIFIED
+     ---------------------------- */
+  function initPrivateProjectCards() {
+    const cards = document.querySelectorAll('.private-project-card');
+    
+    cards.forEach(card => {
+      const enterBtn = card.querySelector('.enter-btn');
+      
+      // Enter project functionality
+      enterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const projectName = card.querySelector('h3').textContent;
+        
+        // Show loading state
+        enterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entering...';
+        
+        // Simulate project loading
+        setTimeout(() => {
+          alert(`Welcome to ${projectName}! This would navigate to the actual project in a real implementation.`);
+          enterBtn.innerHTML = 'Enter Project';
+        }, 1500);
+      });
+    });
   }
 
   /* ----------------------------
@@ -1418,7 +1522,7 @@
     const ctx = canvas.getContext('2d');
     
     function resize(){
-      canvas.width = Math.min(innerWidth, 1200); // Limit for performance
+      canvas.width = Math.min(innerWidth, 1200);
       canvas.height = Math.min(innerHeight, 800);
     }
     
@@ -1432,15 +1536,14 @@
     });
     
     const particles = [];
-    // Reduce particle count on mobile
-    const count = isLowEndDevice() ? 15 : Math.max(20, Math.floor((innerWidth*innerHeight)/100000));
+    const count = 20;
     
     for(let i=0;i<count;i++){
       particles.push({
         x: Math.random()*canvas.width,
         y: Math.random()*canvas.height,
-        r: 1 + Math.random()*2, // Smaller particles
-        vx: (Math.random()-0.5)/3, // Slower movement
+        r: 1 + Math.random()*2,
+        vx: (Math.random()-0.5)/3,
         vy: (Math.random()-0.5)/3,
         hue: 180 + Math.random()*60,
         life: 30 + Math.random()*80
@@ -1459,8 +1562,8 @@
         if(p.y > canvas.height +20) p.y = -20;
 
         ctx.beginPath();
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*8); // Smaller glow
-        g.addColorStop(0, `hsla(${p.hue},80%,60%,0.06)`); // Lower opacity
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*8);
+        g.addColorStop(0, `hsla(${p.hue},80%,60%,0.06)`);
         g.addColorStop(0.4, `hsla(${p.hue},70%,55%,0.03)`);
         g.addColorStop(1, `rgba(2,6,23,0)`);
         ctx.fillStyle = g;
@@ -1469,84 +1572,8 @@
       requestAnimationFrame(draw);
     }
     
-    // Use setTimeout for lower frame rate on mobile
-    if (isLowEndDevice()) {
-      setInterval(draw, 1000/30); // 30 FPS
-    } else {
-      draw();
-    }
+    draw();
   })();
-
-  /* ----------------------------
-     Enhanced VFX Elements - Mobile Optimized
-     ---------------------------- */
-  (function(){
-    const vfxContainer = document.getElementById('vfxContainer');
-    
-    // Reduce floating shapes on mobile
-    const shapeCount = isLowEndDevice() ? 4 : 8;
-    
-    for(let i = 0; i < shapeCount; i++) {
-      const shape = document.createElement('div');
-      shape.classList.add('floating-shape');
-      
-      const size = Math.random() * 150 + 30; // Smaller shapes
-      const posX = Math.random() * 100;
-      const posY = Math.random() * 100;
-      const delay = Math.random() * 10;
-      const duration = Math.random() * 40 + 20; // Slower animation
-      
-      shape.style.width = `${size}px`;
-      shape.style.height = `${size}px`;
-      shape.style.left = `${posX}%`;
-      shape.style.top = `${posY}%`;
-      shape.style.animationDelay = `${delay}s`;
-      shape.style.animationDuration = `${duration}s`;
-      
-      vfxContainer.appendChild(shape);
-    }
-  })();
-
-  /* ----------------------------
-     Particle Trail Effect on Mouse Move - Mobile Optimized
-     ---------------------------- */
-  let lastTouchTime = 0;
-  const touchParticleCooldown = 100; // ms
-  
-  document.addEventListener('mousemove', function(e) {
-    if (isLowEndDevice()) return; // Disable on low-end devices
-    
-    const particle = document.createElement('div');
-    particle.classList.add('particle-trail');
-    particle.style.left = e.pageX + 'px';
-    particle.style.top = e.pageY + 'px';
-    document.body.appendChild(particle);
-    
-    setTimeout(() => {
-      particle.remove();
-    }, 1000);
-  });
-
-  // Touch support for mobile
-  document.addEventListener('touchmove', function(e) {
-    const now = Date.now();
-    if (now - lastTouchTime < touchParticleCooldown) return;
-    lastTouchTime = now;
-    
-    const touch = e.touches[0];
-    const particle = document.createElement('div');
-    particle.classList.add('particle-trail');
-    particle.style.left = touch.pageX + 'px';
-    particle.style.top = touch.pageY + 'px';
-    particle.style.background = 'var(--accent)';
-    particle.style.width = '6px';
-    particle.style.height = '6px';
-    document.body.appendChild(particle);
-    
-    setTimeout(() => {
-      particle.remove();
-    }, 800);
-  }, { passive: true });
 
   /* ----------------------------
      Simple typed effect (loop)
@@ -1618,15 +1645,50 @@
     document.getElementById('homePage').style.display = 'none';
     document.getElementById('projectsPage').style.display = 'none';
     document.getElementById('resumePage').style.display = 'none';
+    document.getElementById('privateProjectPage').style.display = 'none';
     
     // Show selected page
     document.getElementById(page + 'Page').style.display = 'flex';
+    
+    // Initialize private project cards if we're showing that page
+    if (page === 'privateProject') {
+      setTimeout(initPrivateProjectCards, 100);
+    }
     
     // Close mobile menu if open
     document.getElementById('mobileMenu').classList.remove('active');
     
     // Scroll to top on page change
     window.scrollTo(0, 0);
+  }
+
+  /* ----------------------------
+     Password Modal Functions
+     ---------------------------- */
+  function showPasswordModal() {
+    document.getElementById('passwordModal').classList.add('active');
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('passwordError').classList.remove('show');
+  }
+
+  function closePasswordModal() {
+    document.getElementById('passwordModal').classList.remove('active');
+  }
+
+  function checkPassword() {
+    const password = document.getElementById('passwordInput').value;
+    const errorElement = document.getElementById('passwordError');
+    
+    if (password === 'pagal123') {
+      // Correct password
+      closePasswordModal();
+      showPage('privateProject');
+    } else {
+      // Incorrect password
+      errorElement.classList.add('show');
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('passwordInput').focus();
+    }
   }
 
   /* ----------------------------
@@ -1651,19 +1713,6 @@
       mobileMenu.classList.remove('active');
     }
   });
-
-  // Swipe to close menu on mobile
-  let touchStartX = 0;
-  document.getElementById('mobileMenu').addEventListener('touchstart', function(e) {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  document.getElementById('mobileMenu').addEventListener('touchend', function(e) {
-    const touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 50) { // Swipe left
-      this.classList.remove('active');
-    }
-  }, { passive: true });
 
   /* ----------------------------
      Image Modal for Certifications
@@ -1696,20 +1745,10 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeImageModal();
+      closePasswordModal();
       document.getElementById('mobileMenu').classList.remove('active');
     }
   });
-
-  /* Small keyboard easter: press "g" to toggle a visual glow (for fun) */
-  (function(){
-    let on = true;
-    addEventListener('keydown', (e)=>{
-      if(e.key.toLowerCase()==='g'){
-        on = !on;
-        document.querySelectorAll('.glow-ring, .profile-photo').forEach(x=> x.style.filter = on ? '' : 'grayscale(0.9) blur(2px)');
-      }
-    });
-  })();
 
   /* ----------------------------
      Mobile-specific optimizations
@@ -1723,12 +1762,6 @@
 
   // Improve touch responsiveness
   document.addEventListener('touchstart', function() {}, { passive: true });
-
-  // Load critical content first
-  window.addEventListener('load', function() {
-    // Add loaded class for any post-load animations
-    document.body.classList.add('loaded');
-  });
 </script>
 
 </body>
