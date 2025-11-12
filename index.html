@@ -876,8 +876,8 @@
       }
     }
 
-    /* NEW: Advanced loading animation */
-    .loader {
+    /* NEW: Advanced loading animation - REMOVED */
+    /* .loader {
       position: fixed;
       top: 0;
       left: 0;
@@ -919,7 +919,7 @@
       color: var(--accent);
       font-size: 18px;
       font-weight: 600;
-    }
+    } */
 
     /* NEW: Password Modal Styles */
     .password-modal {
@@ -1097,17 +1097,228 @@
         min-height: 280px;
       }
     }
+
+    /* NEW: Enhanced Animations */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .slide-in-left {
+      animation: slideInLeft 1s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 1s ease-out;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 1.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    .bounce {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+    
+    .rotate {
+      animation: rotate 10s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+    
+    .neon-glow {
+      animation: neonGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes neonGlow {
+      from {
+        box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent);
+      }
+      to {
+        box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent), 0 0 40px var(--accent);
+      }
+    }
+    
+    .floating-icons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .floating-icon {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(6,182,212,0.2);
+      animation: floatAround 15s linear infinite;
+    }
+    
+    @keyframes floatAround {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(100px, 50px) rotate(90deg);
+      }
+      50% {
+        transform: translate(50px, 100px) rotate(180deg);
+      }
+      75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent), #38bdf8, #10b981);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    .morphing-shape {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--accent), #38bdf8);
+      filter: blur(60px);
+      opacity: 0.1;
+      animation: morph 8s ease-in-out infinite;
+    }
+    
+    @keyframes morph {
+      0% {
+        border-radius: 50%;
+        transform: rotate(0deg) scale(1);
+      }
+      25% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: rotate(90deg) scale(1.1);
+      }
+      50% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(180deg) scale(1.2);
+      }
+      75% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: rotate(270deg) scale(1.1);
+      }
+      100% {
+        border-radius: 50%;
+        transform: rotate(360deg) scale(1);
+      }
+    }
   </style>
 </head>
 <body>
 
-<!-- Advanced Loading Animation -->
-<div class="loader" id="loader">
-  <div class="loader-content">
-    <div class="loader-spinner"></div>
-    <div class="loader-text">Loading Portfolio...</div>
-  </div>
-</div>
+<!-- REMOVED: Loading Animation -->
 
 <canvas id="bg-canvas" width="1600" height="900"></canvas>
 
@@ -1123,25 +1334,32 @@
   </ul>
 </div>
 
+<!-- NEW: Floating Background Icons -->
+<div class="floating-icons" id="floatingIcons"></div>
+
+<!-- NEW: Morphing Shapes -->
+<div class="morphing-shape" style="top: 10%; left: 5%;"></div>
+<div class="morphing-shape" style="top: 70%; right: 10%; animation-delay: -4s;"></div>
+
 <!-- Home Page -->
 <div class="page" id="homePage">
   <div class="wrap">
 
     <!-- LEFT: Profile card -->
-    <div class="card">
+    <div class="card slide-in-left">
       <div class="glow-ring"></div>
 
       <div class="profile-photo float-slow" title="Amit Kumar">
         <img src="this is my emage.jpg" alt="Amit Kumar photo">
       </div>
 
-      <h1>Amit Kumar</h1>
+      <h1 class="gradient-text">Amit Kumar</h1>
       <div class="sub">currently pursuing Bachelor of Computer Applications (Distance) from Chandigarh University</div>
 
       <div class="badges">
-        <div class="badge">Frontend Developer</div>
-        <div class="badge">HTML • CSS • JavaScript</div>
-        <div class="badge">UI/UX Enthusiast</div>
+        <div class="badge pulse">Frontend Developer</div>
+        <div class="badge pulse">HTML • CSS • JavaScript</div>
+        <div class="badge pulse">UI/UX Enthusiast</div>
       </div>
 
       <div style="text-align:center;color:rgba(230,238,246,0.7);font-size:13px; line-height: 1.5; padding: 0 5px;">
@@ -1160,43 +1378,43 @@
       </div>
 
       <div style="margin-top:18px;text-align:center">
-       <a href="https://abhi787081.github.io/form-filling/"><button class="btn green">Contact</button></a>
+       <a href="https://abhi787081.github.io/form-filling/"><button class="btn green bounce">Contact</button></a>
       </div>
     </div>
 
     <!-- RIGHT: Content -->
     <div class="right">
 
-      <div class="hero reveal" id="hero">
+      <div class="hero reveal slide-in-right" id="hero">
         <div class="hero-top">
           <div class="title-block">
-            <h2>Hi, I'm <span style="color:var(--accent)">Amit</span> — Frontend Developer</h2>
+            <h2>Hi, I'm <span style="color:var(--accent)" class="gradient-text">Amit</span> — Frontend Developer</h2>
             <p>I build modern websites with high quality UI/UX and smooth animations.</p>
             <div style="margin-top:10px">
-              <span class="typing" id="typed">HTML, CSS, JavaScript</span>
+              <span class="typing neon-glow" id="typed">HTML, CSS, JavaScript</span>
             </div>
           </div>
 
           <div class="cta-buttons">
-            <button class="btn green" onclick="showPage('resume')">My information </button>
-            <button class="btn primary" onclick="showPage('projects')">See Projects</button>
+            <button class="btn green bounce" onclick="showPage('resume')">My information </button>
+            <button class="btn primary bounce" onclick="showPage('projects')">See Projects</button>
           </div>
         </div>
 
         <div class="skills" style="margin-top:18px">
-          <div class="skill-card reveal">
+          <div class="skill-card reveal shimmer">
             <h4>HTML</h4>
             <div class="bar"><i data-width="95%"></i></div>
             <small style="opacity:.7">Semantic and accessible markup</small>
           </div>
 
-          <div class="skill-card reveal">
+          <div class="skill-card reveal shimmer">
             <h4>CSS </h4>
             <div class="bar"><i data-width="92%"></i></div>
             <small style="opacity:.7">Responsive, modern layouts & transitions</small>
           </div>
 
-          <div class="skill-card reveal">
+          <div class="skill-card reveal shimmer">
             <h4>JavaScript</h4>
             <div class="bar"><i data-width="88%"></i></div>
             <small style="opacity:.7">Interactive DOM & UI logic</small>
@@ -1240,16 +1458,16 @@
         </div>
 
         <div class="socials">
-          <div class="icon email" onclick="openLink('mailto:abhi787081@gmail.com')" title="Email">
+          <div class="icon email bounce" onclick="openLink('mailto:abhi787081@gmail.com')" title="Email">
             <i class="fas fa-envelope"></i>
           </div>
-          <div class="icon facebook" onclick="openLink('https://www.facebook.com/share/17NSukWZvf/')" title="Facebook">
+          <div class="icon facebook bounce" onclick="openLink('https://www.facebook.com/share/17NSukWZvf/')" title="Facebook">
             <i class="fab fa-facebook-f"></i>
           </div>
-          <div class="icon linkedin" onclick="openLink('https://www.linkedin.com/in/amit-kumar-60037a319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')" title="LinkedIn">
+          <div class="icon linkedin bounce" onclick="openLink('https://www.linkedin.com/in/amit-kumar-60037a319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')" title="LinkedIn">
             <i class="fab fa-linkedin-in"></i>
           </div>
-          <div class="icon instagram" onclick="openLink('https://www.instagram.com/099e1dba6c5d?igsh=MThmOG02ZW82OWhzdQ==')" title="Instagram">
+          <div class="icon instagram bounce" onclick="openLink('https://www.instagram.com/099e1dba6c5d?igsh=MThmOG02ZW82OWhzdQ==')" title="Instagram">
             <i class="fab fa-instagram"></i>
           </div>
         </div>
@@ -1263,7 +1481,7 @@
 <div class="page" id="projectsPage" style="display: none;">
   <div class="wrap" style="max-width: 900px;">
     <div class="card" style="width: 100%;">
-      <h1>My Projects</h1>
+      <h1 class="gradient-text">My Projects</h1>
       <div class="projects" style="margin-top: 20px; flex-direction: column;">
         <div class="project">
           <img src="convertpng.png" alt="proj1">
@@ -1293,7 +1511,7 @@
         </div>
       </div>
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
+        <button class="btn primary back-button bounce" onclick="showPage('home')">Back to Home</button>
       </div>
     </div>
   </div>
@@ -1303,7 +1521,7 @@
 <div class="page" id="resumePage" style="display: none;">
   <div class="wrap" style="max-width: 900px;">
     <div class="card" style="width: 100%;">
-      <h1>My Resume & Certifications</h1>
+      <h1 class="gradient-text">My Resume & Certifications</h1>
       
       <div class="resume-section">
         <h2>Personal Information</h2>
@@ -1323,10 +1541,10 @@
       </div>
       
       <div class="resume-buttons">
-        <button class="btn primary" onclick="showImageModal('First Semester Result', 'rseltcard.jpg')">My First Semester Result</button>
-        <button class="btn red-3d" onclick="showPasswordModal()">Private Project</button>
-        <button class="btn primary" onclick="showImageModal('Resume', 'https://via.placeholder.com/600x800/06b6d4/ffffff?text=Resume')">My Resume</button>
-        <button class="btn primary" onclick="showCertifications()">My (OL) Certifications</button>
+        <button class="btn primary bounce" onclick="showImageModal('First Semester Result', 'rseltcard.jpg')">My First Semester Result</button>
+        <button class="btn red-3d bounce" onclick="showPasswordModal()">Private Project</button>
+        <button class="btn primary bounce" onclick="showImageModal('Resume', 'https://via.placeholder.com/600x800/06b6d4/ffffff?text=Resume')">My Resume</button>
+        <button class="btn primary bounce" onclick="showCertifications()">My (OL) Certifications</button>
       </div>
       
       <div id="certificationsSection" style="display: none;">
@@ -1356,7 +1574,7 @@
       </div>
       
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
+        <button class="btn primary back-button bounce" onclick="showPage('home')">Back to Home</button>
       </div>
     </div>
   </div>
@@ -1366,7 +1584,7 @@
 <div class="page" id="privateProjectPage" style="display: none;">
   <div class="wrap" style="max-width: 900px;">
     <div class="card" style="width: 100%;">
-      <h1>Private Project</h1>
+      <h1 class="gradient-text">Private Project</h1>
       
       <!-- NEW: Private Project Cards Section - UPDATED & SIMPLIFIED -->
       <div class="private-projects-section" style="margin-top: 40px;">
@@ -1389,7 +1607,7 @@
               </div>
             </div>
             <div class="project-actions">
-            <div> <button class="btn green enter-btn" onclick="openLink('https://abhi787081.github.io/Dw-site/')">Enter Project</button></div>
+            <div> <button class="btn green enter-btn bounce" onclick="openLink('https://abhi787081.github.io/Dw-site/')">Enter Project</button></div>
             </div>
           </div>
           
@@ -1408,14 +1626,14 @@
               </div>
             </div>
             <div class="project-actions">
-              <button class="btn green enter-btn">Enter Project</button>
+              <button class="btn green enter-btn bounce">Enter Project</button>
             </div>
           </div>
         </div>
       </div>
       
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
+        <button class="btn primary back-button bounce" onclick="showPage('home')">Back to Home</button>
       </div>
     </div>
   </div>
@@ -1447,27 +1665,69 @@
 
 <script>
   /* ----------------------------
-     Advanced Loading System
+     Enhanced Animations System
      ---------------------------- */
   window.addEventListener('load', function() {
-    // Hide loader after content is loaded
-    setTimeout(function() {
-      document.getElementById('loader').classList.add('hidden');
-      
-      // Start animations after page is loaded
-      startAdvancedAnimations();
-    }, 1500);
+    // Start animations after page is loaded
+    startEnhancedAnimations();
   });
 
   /* ----------------------------
-     Advanced Animations
+     Enhanced Animations
      ---------------------------- */
-  function startAdvancedAnimations() {
+  function startEnhancedAnimations() {
     // Add scroll-triggered animations
     initScrollAnimations();
     
     // Initialize private project cards
     initPrivateProjectCards();
+    
+    // Create floating icons
+    createFloatingIcons();
+    
+    // Add initial animations to elements
+    addInitialAnimations();
+  }
+
+  /* ----------------------------
+     Create Floating Icons
+     ---------------------------- */
+  function createFloatingIcons() {
+    const iconsContainer = document.getElementById('floatingIcons');
+    const icons = ['</>', '{ }', 'CSS', 'JS', 'HTML', 'UI', 'UX', 'DEV'];
+    
+    for (let i = 0; i < 15; i++) {
+      const icon = document.createElement('div');
+      icon.className = 'floating-icon';
+      icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+      icon.style.left = Math.random() * 100 + '%';
+      icon.style.top = Math.random() * 100 + '%';
+      icon.style.animationDelay = Math.random() * 15 + 's';
+      icon.style.fontSize = (Math.random() * 10 + 14) + 'px';
+      icon.style.opacity = Math.random() * 0.3 + 0.1;
+      iconsContainer.appendChild(icon);
+    }
+  }
+
+  /* ----------------------------
+     Add Initial Animations
+     ---------------------------- */
+  function addInitialAnimations() {
+    // Add fade-in animation to all cards
+    const cards = document.querySelectorAll('.card, .hero, .contact');
+    cards.forEach((card, index) => {
+      card.style.animationDelay = (index * 0.2) + 's';
+      card.classList.add('fade-in');
+    });
+    
+    // Add bounce animation to buttons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach((button, index) => {
+      if (!button.classList.contains('bounce')) {
+        button.classList.add('bounce');
+        button.style.animationDelay = (index * 0.1) + 's';
+      }
+    });
   }
 
   /* ----------------------------
@@ -1594,7 +1854,7 @@
         el.textContent = str.slice(0,i);
         if(i<=0){ forward=true; t=(t+1)%texts.length; setTimeout(tick,180); return; }
       }
-      setTimeout(tick,80);
+      setTimeout(tick,100);
     }
     
     // Start typing after a short delay
@@ -1751,7 +2011,7 @@
   });
 
   /* ----------------------------
-     Mobile-specific optimizations
+     Mobile-specific optimizations 
      ---------------------------- */
   // Prevent zoom on double tap (iOS)
   document.addEventListener('touchstart', function(e) {
