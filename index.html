@@ -96,20 +96,12 @@
       position:relative;
       overflow:hidden;
       backdrop-filter: blur(6px) saturate(120%);
-      order: 1;
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       width: 100%;
       box-sizing: border-box;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.1);
-    }
-
     @media (min-width: 768px) {
       .card {
-        order: unset;
         padding:26px;
       }
     }
@@ -125,7 +117,6 @@
       filter:blur(30px);
       transform:rotate(30deg);
       pointer-events:none;
-      animation: glow-pulse 4s ease-in-out infinite;
     }
 
     .profile-photo{
@@ -136,7 +127,6 @@
       margin:0 auto 16px;
       border:6px solid rgba(255,255,255,0.04);
       box-shadow: 0 12px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      transition: transform 0.5s cubic-bezier(.2,.9,.3,1);
       position: relative;
     }
     
@@ -149,8 +139,6 @@
     }
     
     .profile-photo img{width:100%;height:100%;object-fit:cover;display:block; border-radius: 8px;}
-
-    .profile-photo:hover{transform: scale(1.04) rotate(-1deg)}
 
     h1{
       font-size:22px;
@@ -193,12 +181,6 @@
       font-size:12px;
       color:var(--accent);
       box-shadow: 0 4px 10px rgba(6,182,212,0.03);
-      transition: all 0.3s ease;
-    }
-
-    .badge:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(6,182,212,0.1);
     }
 
     .stats{
@@ -214,27 +196,23 @@
       background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
       text-align:center;
       border:1px solid rgba(255,255,255,0.03);
-      transition:transform .35s cubic-bezier(.2,.9,.3,1);
       position: relative;
       overflow: hidden;
     }
     
     .stat strong{display:block;font-size:16px}
     .stat small{display:block;color:rgba(230,238,246,0.6);margin-top:6px;font-size:11px}
-    .stat:hover{transform:translateY(-6px)}
 
     /* Right content area - Mobile optimized */
     .right{
       display:flex;
       flex-direction:column;
       gap:15px;
-      order: 2;
       width: 100%;
     }
 
     @media (min-width: 768px) {
       .right {
-        order: unset;
         gap:18px;
       }
     }
@@ -247,14 +225,8 @@
       box-shadow:var(--card-shadow);
       overflow:hidden;
       position: relative;
-      transition: all 0.5s ease;
       width: 100%;
       box-sizing: border-box;
-    }
-    
-    .hero:hover {
-      box-shadow: 0 20px 40px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.05);
-      transform: translateY(-5px);
     }
     
     @media (min-width: 768px) {
@@ -311,7 +283,6 @@
       font-weight:600;
       font-size:14px;
       color: inherit;
-      transition:transform .2s ease, box-shadow .2s ease;
       min-width: 140px;
       text-align: center;
       flex: 1;
@@ -334,28 +305,13 @@
       border: none;
     }
 
-    /* NEW: Green Animated Button */
     .btn.green {
       background: linear-gradient(90deg, var(--green-accent), #2de52d);
       color: #051020;
       box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
       border: none;
-      animation: green-pulse 2s infinite;
     }
 
-    @keyframes green-pulse {
-      0% {
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
-      }
-      50% {
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.6), 0 0 15px rgba(16, 185, 129, 0.4);
-      }
-      100% {
-        box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
-      }
-    }
-
-    /* NEW: Red 3D Button for Private Project */
     .btn.red-3d {
       background: linear-gradient(135deg, var(--red-accent), #dc2626);
       color: #ffffff;
@@ -364,30 +320,7 @@
         0 8px 30px rgba(239, 68, 68, 0.4),
         0 0 0 1px rgba(255,255,255,0.1),
         inset 0 2px 0 rgba(255,255,255,0.2);
-      transform: translateY(0);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-      overflow: hidden;
-      animation: red-glow 3s infinite alternate;
     }
-
-    @keyframes red-glow {
-      0% {
-        box-shadow: 
-          0 8px 30px rgba(239, 68, 68, 0.4),
-          0 0 0 1px rgba(255,255,255,0.1),
-          inset 0 2px 0 rgba(255,255,255,0.2);
-      }
-      100% {
-        box-shadow: 
-          0 8px 30px rgba(239, 68, 68, 0.6),
-          0 0 15px rgba(239, 68, 68, 0.4),
-          0 0 0 1px rgba(255,255,255,0.1),
-          inset 0 2px 0 rgba(255,255,255,0.2);
-      }
-    }
-    
-    .btn:hover{transform:translateY(-4px)}
 
     /* Animated skill bars + cards - Mobile optimized */
     .skills{
@@ -409,13 +342,7 @@
       background:var(--glass-2);
       border:1px solid rgba(255,255,255,0.03);
       overflow:hidden;
-      transition: all 0.3s ease;
       position: relative;
-    }
-    
-    .skill-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(2,6,23,0.5);
     }
     
     .skill-card h4{margin:0 0 8px;font-size:14px}
@@ -433,7 +360,7 @@
       width:0%;
       background:linear-gradient(90deg,var(--accent), rgba(56,189,248,0.8));
       border-radius:999px;
-      transition: width 1.3s cubic-bezier(.2,.9,.3,1);
+      transition: width 1.3s ease;
       position: relative;
       overflow: hidden;
     }
@@ -470,25 +397,17 @@
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:5px solid rgba(255,255,255,0.03);
       box-shadow: 5 8px 50px rgba(2,6,23,0.5);
-      transform:translateY(0);
-      transition:transform .3s ease;
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
     }
     
-    .project:hover{transform:translateY(-8px)}
     .project img{
       width:100%;
       height:140px;
       object-fit:cover;
       border-radius:8px;
       margin-bottom:10px;
-      transition: transform 0.5s ease;
-    }
-    
-    .project:hover img {
-      transform: scale(1.05);
     }
 
     /* Footer contact - Mobile optimized */
@@ -502,13 +421,8 @@
       background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
       border:1px solid rgba(255,255,255,0.03);
       text-align: center;
-      transition: all 0.3s ease;
       width: 100%;
       box-sizing: border-box;
-    }
-    
-    .contact:hover {
-      box-shadow: 0 10px 30px rgba(2,6,23,0.5);
     }
     
     @media (min-width: 768px) {
@@ -534,16 +448,11 @@
       border:1px solid rgba(255,255,255,0.03);
       cursor:pointer;
       font-size:16px;
-      transition: transform 0.3s ease;
       position: relative;
       overflow: hidden;
     }
-    
-    .icon:hover {
-      transform: scale(1.1);
-    }
 
-    /* NEW: Colorful Social Icons */
+    /* Colorful Social Icons */
     .icon.email {
       background: linear-gradient(135deg, #ea4335, #d93025);
       color: white;
@@ -575,28 +484,6 @@
       box-shadow: 0 6px 20px rgba(2,6,23,0.35);
     }
 
-    /* subtle floating animation */
-    .float-slow{animation:floaty 6s ease-in-out infinite}
-    @keyframes floaty{
-      0%{transform:translateY(0)}
-      50%{transform:translateY(-8px)}
-      100%{transform:translateY(0)}
-    }
-
-    /* cool reveal */
-    .reveal{opacity:0;transform:translateY(10px);transition:all .8s ease;}
-    .reveal.show{opacity:1;transform:none}
-    
-    /* Animations */
-    @keyframes glow-pulse {
-      0%, 100% {
-        opacity: 0.5;
-      }
-      50% {
-        opacity: 0.8;
-      }
-    }
-
     /* Mobile menu for small screens */
     .mobile-menu-btn {
       display: none;
@@ -613,13 +500,7 @@
       font-size: 20px;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(6,182,212,0.3);
-      transition: all 0.3s ease;
       z-index: 1001;
-    }
-    
-    .mobile-menu-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(6,182,212,0.5);
     }
     
     /* Mobile menu */
@@ -657,11 +538,6 @@
       display: block;
       padding: 12px;
       border-radius: 8px;
-      transition: background 0.3s;
-    }
-    
-    .mobile-menu a:hover {
-      background: rgba(255,255,255,0.05);
     }
     
     .close-menu {
@@ -673,16 +549,11 @@
       color: #e6eef6;
       font-size: 24px;
       cursor: pointer;
-      transition: transform 0.3s ease;
       width: 40px;
       height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    
-    .close-menu:hover {
-      transform: scale(1.1);
     }
     
     @media (max-width: 767px) {
@@ -692,10 +563,6 @@
         justify-content: center;
       }
       
-      .card {
-        margin-top: 70px;
-      }
-
       .page {
         padding: 10px;
       }
@@ -759,19 +626,7 @@
       position: relative;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       border: 1px solid rgba(255,255,255,0.1);
-      animation: modal-appear 0.3s ease-out;
       width: 100%;
-    }
-    
-    @keyframes modal-appear {
-      from {
-        opacity: 0;
-        transform: scale(0.9) translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
     }
     
     .close-modal {
@@ -783,16 +638,11 @@
       color: #e6eef6;
       font-size: 24px;
       cursor: pointer;
-      transition: transform 0.3s ease;
       width: 40px;
       height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    
-    .close-modal:hover {
-      transform: scale(1.1);
     }
     
     .modal-image {
@@ -825,11 +675,6 @@
     
     .certification-item {
       text-align: center;
-      transition: transform 0.3s ease;
-    }
-    
-    .certification-item:hover {
-      transform: translateY(-5px);
     }
     
     .certification-item img {
@@ -837,12 +682,7 @@
       height: auto;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.3s ease;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    
-    .certification-item img:hover {
-      transform: scale(1.05);
     }
     
     .back-button {
@@ -851,77 +691,10 @@
 
     /* Touch device optimizations */
     @media (hover: none) {
-      .card:hover {
-        transform: none;
-      }
-      
-      .stat:hover {
-        transform: none;
-      }
-      
-      .btn:hover {
-        transform: none;
-      }
-      
-      .skill-card:hover {
-        transform: none;
-      }
-      
-      .project:hover {
-        transform: none;
-      }
-      
-      .icon:hover {
-        transform: none;
-      }
+      /* No hover effects on touch devices */
     }
 
-    /* NEW: Advanced loading animation - REMOVED */
-    /* .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    .loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-content {
-      text-align: center;
-    }
-
-    .loader-spinner {
-      width: 60px;
-      height: 60px;
-      border: 4px solid rgba(6,182,212,0.2);
-      border-top: 4px solid var(--accent);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loader-text {
-      color: var(--accent);
-      font-size: 18px;
-      font-weight: 600;
-    } */
-
-    /* NEW: Password Modal Styles */
+    /* Password Modal Styles */
     .password-modal {
       display: none;
       position: fixed;
@@ -951,7 +724,6 @@
       position: relative;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       border: 1px solid rgba(255,255,255,0.1);
-      animation: modal-appear 0.3s ease-out;
       text-align: center;
     }
     
@@ -977,7 +749,6 @@
       font-size: 16px;
       margin-bottom: 15px;
       box-sizing: border-box;
-      transition: all 0.3s ease;
     }
     
     .password-input:focus {
@@ -997,7 +768,7 @@
       display: block;
     }
 
-    /* NEW: Private Project Cards Styles - UPDATED & SIMPLIFIED */
+    /* Private Project Cards Styles */
     .private-project-card {
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border: 1px solid rgba(255,255,255,0.05);
@@ -1007,19 +778,13 @@
       position: relative;
       overflow: hidden;
       backdrop-filter: blur(6px) saturate(120%);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      height: 280px; /* Further reduced */
+      height: 280px;
       display: flex;
       flex-direction: column;
     }
 
-    .private-project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px rgba(2,6,23,0.8), 0 0 0 1px rgba(6,182,212,0.1);
-    }
-
     .project-image-container {
-      height: 140px; /* Reduced */
+      height: 140px;
       overflow: hidden;
       border-radius: 12px 12px 0 0;
     }
@@ -1028,60 +793,50 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .project-image-container img:hover {
-      transform: scale(1.05);
     }
 
     .project-content {
-      padding: 12px; /* Reduced */
+      padding: 12px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
     }
 
     .project-content h3 {
-      margin: 0 0 8px; /* Reduced */
+      margin: 0 0 8px;
       color: var(--accent);
-      font-size: 16px; /* Reduced */
+      font-size: 16px;
     }
 
     .project-content p {
       color: rgba(230,238,246,0.7);
-      font-size: 12px; /* Reduced */
-      margin-bottom: 10px; /* Reduced */
+      font-size: 12px;
+      margin-bottom: 10px;
       line-height: 1.4;
       flex-grow: 1;
     }
 
     .tech-tags {
       display: flex;
-      gap: 4px; /* Reduced */
+      gap: 4px;
       flex-wrap: wrap;
-      margin-bottom: 10px; /* Reduced */
+      margin-bottom: 10px;
     }
 
     .tech-tags span {
       background: rgba(6,182,212,0.1);
       color: var(--accent);
-      padding: 2px 6px; /* Reduced */
+      padding: 2px 6px;
       border-radius: 20px;
-      font-size: 10px; /* Reduced */
+      font-size: 10px;
     }
 
     .project-actions {
-      padding: 0 12px 12px; /* Reduced */
+      padding: 0 12px 12px;
     }
 
     .enter-btn {
-      transition: all 0.3s ease;
       width: 100%;
-    }
-
-    .enter-btn:hover {
-      transform: translateY(-3px);
     }
 
     /* Responsive adjustments for private project cards */
@@ -1098,227 +853,16 @@
       }
     }
 
-    /* NEW: Enhanced Animations */
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-    
-    .slide-in-left {
-      animation: slideInLeft 1s ease-out;
-    }
-    
-    @keyframes slideInLeft {
-      from {
-        transform: translateX(-100px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-    
-    .slide-in-right {
-      animation: slideInRight 1s ease-out;
-    }
-    
-    @keyframes slideInRight {
-      from {
-        transform: translateX(100px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-    
-    .fade-in {
-      animation: fadeIn 1.5s ease-in;
-    }
-    
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    
-    .bounce {
-      animation: bounce 2s infinite;
-    }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-10px);
-      }
-      60% {
-        transform: translateY(-5px);
-      }
-    }
-    
-    .rotate {
-      animation: rotate 10s linear infinite;
-    }
-    
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-    
-    .shimmer {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .shimmer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      animation: shimmer 3s infinite;
-    }
-    
-    @keyframes shimmer {
-      0% {
-        left: -100%;
-      }
-      100% {
-        left: 100%;
-      }
-    }
-    
-    .neon-glow {
-      animation: neonGlow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes neonGlow {
-      from {
-        box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent);
-      }
-      to {
-        box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent), 0 0 40px var(--accent);
-      }
-    }
-    
-    .floating-icons {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    
-    .floating-icon {
-      position: absolute;
-      font-size: 24px;
-      color: rgba(6,182,212,0.2);
-      animation: floatAround 15s linear infinite;
-    }
-    
-    @keyframes floatAround {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      25% {
-        transform: translate(100px, 50px) rotate(90deg);
-      }
-      50% {
-        transform: translate(50px, 100px) rotate(180deg);
-      }
-      75% {
-        transform: translate(-50px, 50px) rotate(270deg);
-      }
-      100% {
-        transform: translate(0, 0) rotate(360deg);
-      }
-    }
-    
     .gradient-text {
       background: linear-gradient(90deg, var(--accent), #38bdf8, #10b981);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: gradientShift 3s ease infinite;
-    }
-    
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-    
-    .morphing-shape {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, var(--accent), #38bdf8);
-      filter: blur(60px);
-      opacity: 0.1;
-      animation: morph 8s ease-in-out infinite;
-    }
-    
-    @keyframes morph {
-      0% {
-        border-radius: 50%;
-        transform: rotate(0deg) scale(1);
-      }
-      25% {
-        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-        transform: rotate(90deg) scale(1.1);
-      }
-      50% {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        transform: rotate(180deg) scale(1.2);
-      }
-      75% {
-        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-        transform: rotate(270deg) scale(1.1);
-      }
-      100% {
-        border-radius: 50%;
-        transform: rotate(360deg) scale(1);
-      }
     }
   </style>
 </head>
 <body>
-
-<!-- REMOVED: Loading Animation -->
 
 <canvas id="bg-canvas" width="1600" height="900"></canvas>
 
@@ -1334,22 +878,15 @@
   </ul>
 </div>
 
-<!-- NEW: Floating Background Icons -->
-<div class="floating-icons" id="floatingIcons"></div>
-
-<!-- NEW: Morphing Shapes -->
-<div class="morphing-shape" style="top: 10%; left: 5%;"></div>
-<div class="morphing-shape" style="top: 70%; right: 10%; animation-delay: -4s;"></div>
-
 <!-- Home Page -->
 <div class="page" id="homePage">
   <div class="wrap">
 
     <!-- LEFT: Profile card -->
-    <div class="card slide-in-left">
+    <div class="card">
       <div class="glow-ring"></div>
 
-      <div class="profile-photo float-slow" title="Amit Kumar">
+      <div class="profile-photo" title="Amit Kumar">
         <img src="this is my emage.jpg" alt="Amit Kumar photo">
       </div>
 
@@ -1357,9 +894,9 @@
       <div class="sub">currently pursuing Bachelor of Computer Applications (Distance) from Chandigarh University</div>
 
       <div class="badges">
-        <div class="badge pulse">Frontend Developer</div>
-        <div class="badge pulse">HTML • CSS • JavaScript</div>
-        <div class="badge pulse">UI/UX Enthusiast</div>
+        <div class="badge">Frontend Developer</div>
+        <div class="badge">HTML • CSS • JavaScript</div>
+        <div class="badge">UI/UX Enthusiast</div>
       </div>
 
       <div style="text-align:center;color:rgba(230,238,246,0.7);font-size:13px; line-height: 1.5; padding: 0 5px;">
@@ -1378,43 +915,43 @@
       </div>
 
       <div style="margin-top:18px;text-align:center">
-       <a href="https://abhi787081.github.io/form-filling/"><button class="btn green bounce">Contact</button></a>
+       <a href="https://abhi787081.github.io/form-filling/"><button class="btn green">Contact</button></a>
       </div>
     </div>
 
     <!-- RIGHT: Content -->
     <div class="right">
 
-      <div class="hero reveal slide-in-right" id="hero">
+      <div class="hero" id="hero">
         <div class="hero-top">
           <div class="title-block">
             <h2>Hi, I'm <span style="color:var(--accent)" class="gradient-text">Amit</span> — Frontend Developer</h2>
             <p>I build modern websites with high quality UI/UX and smooth animations.</p>
             <div style="margin-top:10px">
-              <span class="typing neon-glow" id="typed">HTML, CSS, JavaScript</span>
+              <span class="typing" id="typed">HTML, CSS, JavaScript</span>
             </div>
           </div>
 
           <div class="cta-buttons">
-            <button class="btn green bounce" onclick="showPage('resume')">My information </button>
-            <button class="btn primary bounce" onclick="showPage('projects')">See Projects</button>
+            <button class="btn green" onclick="showPage('resume')">My information </button>
+            <button class="btn primary" onclick="showPage('projects')">See Projects</button>
           </div>
         </div>
 
         <div class="skills" style="margin-top:18px">
-          <div class="skill-card reveal shimmer">
+          <div class="skill-card">
             <h4>HTML</h4>
             <div class="bar"><i data-width="95%"></i></div>
             <small style="opacity:.7">Semantic and accessible markup</small>
           </div>
 
-          <div class="skill-card reveal shimmer">
+          <div class="skill-card">
             <h4>CSS </h4>
             <div class="bar"><i data-width="92%"></i></div>
             <small style="opacity:.7">Responsive, modern layouts & transitions</small>
           </div>
 
-          <div class="skill-card reveal shimmer">
+          <div class="skill-card">
             <h4>JavaScript</h4>
             <div class="bar"><i data-width="88%"></i></div>
             <small style="opacity:.7">Interactive DOM & UI logic</small>
@@ -1422,7 +959,7 @@
         </div>
 
         <div id="projects" class="projects" style="margin-top:18px">
-          <div class="project reveal">
+          <div class="project">
             <img src="convertpng.png" alt="proj1">
             <h4>Png to pdf convertor website</h4>
             <p style="margin:6px 0 10px;color:rgba(230,238,246,0.75);font-size:13px">AI-assisted.</p>
@@ -1431,7 +968,7 @@
             </div>
           </div>
 
-          <div class="project reveal">
+          <div class="project">
             <img src="https://www.emediait.com/wp-content/uploads/2021/05/bigstock-207219619.jpg" alt="proj2">
             <h4>note upadeted this project </h4>
             <p style="margin:6px 0 10px;color:rgba(230,238,246,0.75);font-size:13px">wait for update my project.</p>
@@ -1440,7 +977,7 @@
             </div>
           </div>
 
-          <div class="project reveal">
+          <div class="project">
             <img src="https://www.completeonline.co.uk/wp-content/uploads/2020/11/Emerging-web-design-trends-for-2021.jpeg" alt="proj3">
             <h4>Website UI</h4>
             <p style="margin:6px 0 10px;color:rgba(230,238,246,0.75);font-size:13px">High-quality UI/UX with micro-interactions.</p>
@@ -1458,16 +995,16 @@
         </div>
 
         <div class="socials">
-          <div class="icon email bounce" onclick="openLink('mailto:abhi787081@gmail.com')" title="Email">
+          <div class="icon email" onclick="openLink('mailto:abhi787081@gmail.com')" title="Email">
             <i class="fas fa-envelope"></i>
           </div>
-          <div class="icon facebook bounce" onclick="openLink('https://www.facebook.com/share/17NSukWZvf/')" title="Facebook">
+          <div class="icon facebook" onclick="openLink('https://www.facebook.com/share/17NSukWZvf/')" title="Facebook">
             <i class="fab fa-facebook-f"></i>
           </div>
-          <div class="icon linkedin bounce" onclick="openLink('https://www.linkedin.com/in/amit-kumar-60037a319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')" title="LinkedIn">
+          <div class="icon linkedin" onclick="openLink('https://www.linkedin.com/in/amit-kumar-60037a319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app')" title="LinkedIn">
             <i class="fab fa-linkedin-in"></i>
           </div>
-          <div class="icon instagram bounce" onclick="openLink('https://www.instagram.com/099e1dba6c5d?igsh=MThmOG02ZW82OWhzdQ==')" title="Instagram">
+          <div class="icon instagram" onclick="openLink('https://www.instagram.com/099e1dba6c5d?igsh=MThmOG02ZW82OWhzdQ==')" title="Instagram">
             <i class="fab fa-instagram"></i>
           </div>
         </div>
@@ -1511,7 +1048,7 @@
         </div>
       </div>
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn primary back-button bounce" onclick="showPage('home')">Back to Home</button>
+        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
       </div>
     </div>
   </div>
@@ -1541,10 +1078,10 @@
       </div>
       
       <div class="resume-buttons">
-        <button class="btn primary bounce" onclick="showImageModal('First Semester Result', 'rseltcard.jpg')">My First Semester Result</button>
-        <button class="btn red-3d bounce" onclick="showPasswordModal()">Private Project</button>
-        <button class="btn primary bounce" onclick="showImageModal('Resume', 'https://via.placeholder.com/600x800/06b6d4/ffffff?text=Resume')">My Resume</button>
-        <button class="btn primary bounce" onclick="showCertifications()">My (OL) Certifications</button>
+        <button class="btn primary" onclick="showImageModal('First Semester Result', 'rseltcard.jpg')">My First Semester Result</button>
+        <button class="btn red-3d" onclick="showPasswordModal()">Private Project</button>
+        <button class="btn primary" onclick="showImageModal('Resume', 'https://via.placeholder.com/600x800/06b6d4/ffffff?text=Resume')">My Resume</button>
+        <button class="btn primary" onclick="showCertifications()">My (OL) Certifications</button>
       </div>
       
       <div id="certificationsSection" style="display: none;">
@@ -1574,7 +1111,7 @@
       </div>
       
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn primary back-button bounce" onclick="showPage('home')">Back to Home</button>
+        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
       </div>
     </div>
   </div>
@@ -1586,13 +1123,13 @@
     <div class="card" style="width: 100%;">
       <h1 class="gradient-text">Private Project</h1>
       
-      <!-- NEW: Private Project Cards Section - UPDATED & SIMPLIFIED -->
+      <!-- Private Project Cards Section -->
       <div class="private-projects-section" style="margin-top: 40px;">
         <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent);"></h2>
         
         <div class="private-projects-grid" style="display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 30px;">
           
-          <!-- Project Card 1 - UPDATED & SIMPLIFIED -->
+          <!-- Project Card 1 -->
           <div class="private-project-card">
             <div class="project-image-container">
               <img src="galaxy.jpeg" alt="Project Alpha">
@@ -1607,11 +1144,11 @@
               </div>
             </div>
             <div class="project-actions">
-            <div> <button class="btn green enter-btn bounce" onclick="openLink('https://abhi787081.github.io/Dw-site/')">Enter Project</button></div>
+            <div> <button class="btn green enter-btn" onclick="openLink('https://abhi787081.github.io/Dw-site/')">Enter Project</button></div>
             </div>
           </div>
           
-          <!-- Project Card 2 - UPDATED & SIMPLIFIED -->
+          <!-- Project Card 2 -->
           <div class="private-project-card">
             <div class="project-image-container">
               <img src="https://via.placeholder.com/600x400/10b981/ffffff?text=Project+Beta" alt="Project Beta">
@@ -1626,14 +1163,14 @@
               </div>
             </div>
             <div class="project-actions">
-              <button class="btn green enter-btn bounce">Enter Project</button>
+              <button class="btn green enter-btn">Enter Project</button>
             </div>
           </div>
         </div>
       </div>
       
       <div style="text-align: center; margin-top: 20px;">
-        <button class="btn primary back-button bounce" onclick="showPage('home')">Back to Home</button>
+        <button class="btn primary back-button" onclick="showPage('home')">Back to Home</button>
       </div>
     </div>
   </div>
@@ -1648,7 +1185,7 @@
   </div>
 </div>
 
-<!-- NEW: Password Modal -->
+<!-- Password Modal -->
 <div class="password-modal" id="passwordModal">
   <div class="password-content">
     <button class="close-modal" onclick="closePasswordModal()">×</button>
@@ -1664,177 +1201,6 @@
 </div>
 
 <script>
-  /* ----------------------------
-     Enhanced Animations System
-     ---------------------------- */
-  window.addEventListener('load', function() {
-    // Start animations after page is loaded
-    startEnhancedAnimations();
-  });
-
-  /* ----------------------------
-     Enhanced Animations
-     ---------------------------- */
-  function startEnhancedAnimations() {
-    // Add scroll-triggered animations
-    initScrollAnimations();
-    
-    // Initialize private project cards
-    initPrivateProjectCards();
-    
-    // Create floating icons
-    createFloatingIcons();
-    
-    // Add initial animations to elements
-    addInitialAnimations();
-  }
-
-  /* ----------------------------
-     Create Floating Icons
-     ---------------------------- */
-  function createFloatingIcons() {
-    const iconsContainer = document.getElementById('floatingIcons');
-    const icons = ['</>', '{ }', 'CSS', 'JS', 'HTML', 'UI', 'UX', 'DEV'];
-    
-    for (let i = 0; i < 15; i++) {
-      const icon = document.createElement('div');
-      icon.className = 'floating-icon';
-      icon.textContent = icons[Math.floor(Math.random() * icons.length)];
-      icon.style.left = Math.random() * 100 + '%';
-      icon.style.top = Math.random() * 100 + '%';
-      icon.style.animationDelay = Math.random() * 15 + 's';
-      icon.style.fontSize = (Math.random() * 10 + 14) + 'px';
-      icon.style.opacity = Math.random() * 0.3 + 0.1;
-      iconsContainer.appendChild(icon);
-    }
-  }
-
-  /* ----------------------------
-     Add Initial Animations
-     ---------------------------- */
-  function addInitialAnimations() {
-    // Add fade-in animation to all cards
-    const cards = document.querySelectorAll('.card, .hero, .contact');
-    cards.forEach((card, index) => {
-      card.style.animationDelay = (index * 0.2) + 's';
-      card.classList.add('fade-in');
-    });
-    
-    // Add bounce animation to buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach((button, index) => {
-      if (!button.classList.contains('bounce')) {
-        button.classList.add('bounce');
-        button.style.animationDelay = (index * 0.1) + 's';
-      }
-    });
-  }
-
-  /* ----------------------------
-     Scroll Animations
-     ---------------------------- */
-  function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll('.reveal');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    animatedElements.forEach(el => observer.observe(el));
-  }
-
-  /* ----------------------------
-     Private Project Cards Functionality - UPDATED & SIMPLIFIED
-     ---------------------------- */
-  function initPrivateProjectCards() {
-    const cards = document.querySelectorAll('.private-project-card');
-    
-    cards.forEach(card => {
-      const enterBtn = card.querySelector('.enter-btn');
-      
-      // Enter project functionality
-      enterBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const projectName = card.querySelector('h3').textContent;
-        
-        // Show loading state
-        enterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entering...';
-        
-        // Simulate project loading
-        setTimeout(() => {
-          alert(`Welcome to ${projectName}! This would navigate to the actual project in a real implementation.`);
-          enterBtn.innerHTML = 'Enter Project';
-        }, 1500);
-      });
-    });
-  }
-
-  /* ----------------------------
-     Particle background (canvas)
-     Lightweight, GPU-friendly
-     ---------------------------- */
-  (function(){
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    function resize(){
-      canvas.width = Math.min(innerWidth, 1200);
-      canvas.height = Math.min(innerHeight, 800);
-    }
-    
-    resize(); 
-    
-    // Throttle resize for mobile performance
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(resize, 250);
-    });
-    
-    const particles = [];
-    const count = 20;
-    
-    for(let i=0;i<count;i++){
-      particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        r: 1 + Math.random()*2,
-        vx: (Math.random()-0.5)/3,
-        vy: (Math.random()-0.5)/3,
-        hue: 180 + Math.random()*60,
-        life: 30 + Math.random()*80
-      });
-    }
-    
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(let p of particles){
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life += 0.02;
-        if(p.x < -20) p.x = canvas.width + 20;
-        if(p.x > canvas.width +20) p.x = -20;
-        if(p.y < -20) p.y = canvas.height + 20;
-        if(p.y > canvas.height +20) p.y = -20;
-
-        ctx.beginPath();
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*8);
-        g.addColorStop(0, `hsla(${p.hue},80%,60%,0.06)`);
-        g.addColorStop(0.4, `hsla(${p.hue},70%,55%,0.03)`);
-        g.addColorStop(1, `rgba(2,6,23,0)`);
-        ctx.fillStyle = g;
-        ctx.fillRect(p.x - p.r*8, p.y - p.r*8, p.r*16, p.r*16);
-      }
-      requestAnimationFrame(draw);
-    }
-    
-    draw();
-  })();
-
   /* ----------------------------
      Simple typed effect (loop)
      ---------------------------- */
@@ -1865,19 +1231,12 @@
      Reveal on scroll & skill bars anim - Mobile Optimized
      ---------------------------- */
   (function(){
-    const reveals = Array.from(document.querySelectorAll('.reveal'));
     const bars = Array.from(document.querySelectorAll('.bar > i'));
     
     // Throttle scroll for performance
     let scrollTimeout;
     function check(){
       const H = innerHeight;
-      for(const el of reveals){
-        const r = el.getBoundingClientRect();
-        if(r.top < H - 80){
-          el.classList.add('show');
-        }
-      }
       for(const b of bars){
         const parent = b.closest('.skill-card');
         if(!parent) continue;
@@ -1909,11 +1268,6 @@
     
     // Show selected page
     document.getElementById(page + 'Page').style.display = 'flex';
-    
-    // Initialize private project cards if we're showing that page
-    if (page === 'privateProject') {
-      setTimeout(initPrivateProjectCards, 100);
-    }
     
     // Close mobile menu if open
     document.getElementById('mobileMenu').classList.remove('active');
