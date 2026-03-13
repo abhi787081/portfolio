@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Amit Kumar — Pure Profile Card</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Amit Kumar — Complete Portfolio</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome for icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -24,19 +24,26 @@
       --red-accent: #ef4444;
     }
     *{box-sizing:border-box; margin:0; padding:0}
-    html,body{height:100%; overflow-x:hidden}
+    html,body{
+      height:100%; 
+      overflow-x:hidden;
+      background: var(--bg1); /* ensures no black bar on mobile */
+    }
     body{
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
       background: radial-gradient(1200px 600px at 10% 10%, rgba(6,182,212,0.06), transparent),
                   linear-gradient(180deg,var(--bg1),var(--bg2));
       color:#e6eef6;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.5;
-      overflow-x: hidden;
       width: 100%;
+      min-height: 100vh;
+      /* mobile black bar fix */
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
+    /* smooth performance */
     * {
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
@@ -52,6 +59,7 @@
       pointer-events:none;
     }
 
+    /* main layout */
     .page{
       position:relative;
       z-index:2;
@@ -63,7 +71,6 @@
       width:100%;
     }
 
-    /* main grid */
     .wrap{
       width:100%;
       max-width:500px;
@@ -81,7 +88,7 @@
       }
     }
 
-    /* LEFT CARD – this is the actual profile card (now also used as popup, but we will clone it) */
+    /* left card (profile trigger) */
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.05);
@@ -92,7 +99,6 @@
       overflow:hidden;
       backdrop-filter: blur(6px) saturate(120%);
       width:100%;
-      box-sizing:border-box;
     }
     .glow-ring{
       position:absolute;
@@ -113,7 +119,7 @@
       overflow:hidden;
       margin:0 auto 16px;
       border:6px solid rgba(255,255,255,0.04);
-      box-shadow: 0 12px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      box-shadow: 0 12px 30px rgba(2,6,23,0.6);
     }
     .profile-photo img{width:100%;height:100%;object-fit:cover;display:block; border-radius: 8px;}
 
@@ -165,7 +171,7 @@
     .stat strong{display:block;font-size:16px}
     .stat small{display:block;color:rgba(230,238,246,0.6);margin-top:6px;font-size:11px}
 
-    /* RIGHT CONTENT */
+    /* right content */
     .right{
       display:flex;
       flex-direction:column;
@@ -209,8 +215,6 @@
       min-width:140px;
       text-align:center;
       flex:1;
-      position:relative;
-      overflow:hidden;
       transition: all 0.2s ease;
     }
     .btn.primary{
@@ -223,6 +227,12 @@
       background: linear-gradient(90deg, var(--green-accent), #2de52d);
       color:#051020;
       border:none;
+    }
+    .profile-trigger-btn {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+      box-shadow: 0 0 20px #8b5cf6 !important;
+      border: none !important;
+      color: white !important;
     }
 
     /* skill bars */
@@ -270,7 +280,7 @@
       border-radius:12px;
       padding:14px;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:5px solid rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.03);
       flex-shrink:0;
     }
     .project img{
@@ -327,7 +337,7 @@
       background-clip: text;
     }
 
-    /* ===== PROFILE POPUP (PURE CARD, NO BOX, NO CLOSE ICON) ===== */
+    /* profile popup (pure card, no close icon) */
     .profile-popup-overlay {
       position: fixed;
       inset: 0;
@@ -346,99 +356,86 @@
       pointer-events: all;
     }
 
-    /* the moving card – starts from button position and expands, only card no extra box */
     .popup-card {
       position: absolute;
       width: var(--start-width, 140px);
       height: var(--start-height, 50px);
       border-radius: 10px;
-      background: transparent;  /* let the inner card show through */
-      box-shadow: none; /* no shadow on wrapper, card itself will glow */
-      overflow: visible; /* so card's glow can extend */
+      background: transparent;
+      overflow: visible;
       transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
       transform-origin: center;
       pointer-events: none;
       opacity: 0;
     }
-
     .popup-card.expanded {
       width: min(400px, 90vw);
       height: auto;
       border-radius: 0;
-      box-shadow: none;
       pointer-events: all;
       opacity: 1;
     }
-
-    /* the actual profile card inside popup */
     .popup-card .popup-content {
       width: 100%;
       height: 100%;
       opacity: 0;
       transition: opacity 0.3s 0.3s;
       border-radius: 18px;
-      box-shadow: 0 0 40px var(--accent), 0 0 80px #06b6d4, 0 0 120px #0284c7; /* neon glow 4K */
+      box-shadow: 0 0 40px var(--accent), 0 0 80px #06b6d4, 0 0 120px #0284c7;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2);
       overflow: hidden;
     }
-
     .popup-card.expanded .popup-content {
       opacity: 1;
     }
 
-    /* The button that triggers profile becomes "profile button" */
-    .profile-trigger-btn {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
-      box-shadow: 0 0 20px #8b5cf6 !important;
-      border: none !important;
-      color: white !important;
+    /* hidden template */
+    #profileCardTemplate { display: none; }
+
+    /* modal & password (from original) - simplified but functional */
+    .modal, .password-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(2,17,36,0.9);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
     }
-
-    /* no close icon — removed as requested */
-    /* close is done by clicking outside (overlay) */
-
-    /* responsiveness */
-    @media (max-width:767px) {
-      .popup-card.expanded .popup-content { min-height: 400px; }
+    .modal.active, .password-modal.active { display: flex; }
+    .modal-content, .password-content {
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      border-radius: 18px;
+      padding: 20px;
+      max-width: 90%;
+      border: 1px solid rgba(255,255,255,0.1);
     }
   </style>
 </head>
 <body>
 
-<canvas id="bg-canvas" width="1600" height="900"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-<!-- MAIN HOME PAGE -->
+<!-- HOME PAGE -->
 <div class="page" id="homePage">
   <div class="wrap">
-
-    <!-- LEFT column: contains the actual profile card (visible by default) 
-         but we will also use it as popup source. We'll keep it visible.
-         According to requirement: left profile card should open from profile button.
-         So we keep left card as normal, and also add a profile button in right area? 
-         But we need a button that triggers the popup with the same card.
-         We'll add a "Profile" button in the right hero section, and when clicked,
-         the left card animates and becomes a popup. But the left card is already there.
-         To avoid duplication, we'll hide the left card initially and only show the trigger button in left area.
-         Actually better: left area contains a minimal placeholder with profile button.
-         The actual card is hidden in a template. Then on click, it animates from button.
-    -->
-    
-    <!-- LEFT column replaced by a profile button card (simple) -->
+    <!-- LEFT: trigger card -->
     <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px;">
       <div class="glow-ring"></div>
       <i class="fas fa-user-astronaut" style="font-size: 64px; color: var(--accent); margin-bottom: 15px;"></i>
       <h3 class="gradient-text" style="margin-bottom: 10px;">Amit Kumar</h3>
-      <p style="text-align: center; color: rgba(230,238,246,0.7); font-size: 14px; margin-bottom: 20px;">Click below to see my premium profile card with 4K neon glow</p>
-      <button class="btn primary profile-trigger-btn" id="profileOpenBtn" style="min-width: 160px; font-size: 16px;">
-        <i class="fas fa-id-card" style="margin-right: 8px;"></i> Profile
+      <p style="text-align: center; color: rgba(230,238,246,0.7); font-size: 14px; margin-bottom: 20px;">Click below to see premium profile</p>
+      <button class="btn primary profile-trigger-btn" id="profileOpenBtn" style="min-width: 160px;">
+        <i class="fas fa-id-card"></i> Profile
       </button>
     </div>
 
-    <!-- RIGHT: Content unchanged (includes a profile button? we already have one in left, but we can keep both) -->
+    <!-- RIGHT: full content with My information & See Projects -->
     <div class="right">
-      <div class="hero" id="hero">
+      <div class="hero">
         <div class="hero-top">
           <div class="title-block">
             <h2>Hi, I'm <span class="gradient-text">Amit</span> — Frontend Developer</h2>
@@ -452,21 +449,24 @@
             <button class="btn primary" onclick="showPage('projects')">See Projects</button>
           </div>
         </div>
-        <!-- skills, projects etc -->
+
+        <!-- skills -->
         <div class="skills" style="margin-top:18px">
           <div class="skill-card"><h4>HTML</h4><div class="bar"><i data-width="95%"></i></div><small>Semantic & accessible</small></div>
           <div class="skill-card"><h4>CSS</h4><div class="bar"><i data-width="92%"></i></div><small>Responsive, modern</small></div>
           <div class="skill-card"><h4>JavaScript</h4><div class="bar"><i data-width="88%"></i></div><small>Interactive UI</small></div>
         </div>
-        <div class="projects" style="margin-top:18px">
+
+        <!-- projects carousel -->
+        <div class="projects">
           <div class="project">
-            <img src="convertpng.png" alt="proj1">
+            <img src="convertpng.png" alt="proj1" onerror="this.src='https://via.placeholder.com/260x140/06b6d4/ffffff?text=Png+to+PDF'">
             <h4>Png to pdf converter</h4>
             <button class="btn" onclick="alert('coconut.page.gd')">OPEN</button>
           </div>
           <div class="project">
             <img src="https://www.emediait.com/wp-content/uploads/2021/05/bigstock-207219619.jpg" alt="proj2">
-            <h4>note updated</h4>
+            <h4>Note updated</h4>
             <button class="btn" onclick="alert('wait for update')">Preview</button>
           </div>
           <div class="project">
@@ -476,10 +476,12 @@
           </div>
         </div>
       </div>
-      <div class="contact" id="contact">
+
+      <!-- contact -->
+      <div class="contact">
         <div>
-          <div style="font-weight:700;font-size:15px">Let's build something awesome</div>
-          <div style="color:rgba(230,238,246,0.7);font-size:13px;margin-top:6px">Email: <span style="color:var(--accent)">abhi787081@gmail.com</span></div>
+          <div style="font-weight:700;">Let's build something awesome</div>
+          <div style="color:rgba(230,238,246,0.7);font-size:13px;">Email: <span style="color:var(--accent)">abhi787081@gmail.com</span></div>
         </div>
         <div class="socials">
           <div class="icon email" onclick="openLink('mailto:abhi787081@gmail.com')"><i class="fas fa-envelope"></i></div>
@@ -492,44 +494,130 @@
   </div>
 </div>
 
-<!-- Hidden template of original profile card (exact copy from original left card) -->
-<div id="profileCardTemplate" style="display: none;">
-  <div class="card" style="background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));">
+<!-- PROJECTS PAGE (full projects list) -->
+<div class="page" id="projectsPage" style="display: none;">
+  <div class="wrap" style="max-width: 900px;">
+    <div class="card" style="width: 100%;">
+      <h1 class="gradient-text">My Projects</h1>
+      <div class="projects" style="flex-direction: column; overflow-x: visible;">
+        <div class="project" style="min-width: auto;">
+          <img src="convertpng.png" onerror="this.src='https://via.placeholder.com/800x450/06b6d4/ffffff?text=Png+to+PDF'">
+          <h4>Png to pdf convertor website</h4>
+          <p>AI-assisted converter.</p>
+          <button class="btn" onclick="alert('coconut.page.gd')">Preview</button>
+        </div>
+        <div class="project" style="min-width: auto;">
+          <img src="https://via.placeholder.com/800x450/06b6d4/ffffff?text=Portfolio+Project">
+          <h4>Portfolio 2025</h4>
+          <p>Responsive animated template.</p>
+          <button class="btn" onclick="alert('Demo not linked')">Preview</button>
+        </div>
+        <div class="project" style="min-width: auto;">
+          <img src="https://via.placeholder.com/800x450/06b6d4/ffffff?text=UI+Project">
+          <h4>Animated Website UI</h4>
+          <p>Micro-interactions and modern design.</p>
+          <button class="btn" onclick="alert('Demo not linked')">Preview</button>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn primary back-button" onclick="goBack()">← Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME PAGE (full information) -->
+<div class="page" id="resumePage" style="display: none;">
+  <div class="wrap" style="max-width: 900px;">
+    <div class="card" style="width: 100%;">
+      <h1 class="gradient-text">My Information & Certifications</h1>
+      <div class="resume-section">
+        <h2>Personal</h2>
+        <p><strong>Name:</strong> Amit Kumar</p>
+        <p><strong>Email:</strong> abhi787081@gmail.com</p>
+        <p><strong>Education:</strong> BCA (Distance) from Chandigarh University</p>
+      </div>
+      <div class="resume-section">
+        <h2>Skills</h2>
+        <ul>
+          <li>HTML5, CSS3, JavaScript</li>
+          <li>Responsive Web Design</li>
+          <li>UI/UX Design Principles</li>
+        </ul>
+      </div>
+      <div class="resume-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn primary" onclick="showImageModal('First Semester Result', 'rseltcard.jpg')">Result</button>
+        <button class="btn red-3d" onclick="showPasswordModal()">Private Project</button>
+        <button class="btn primary" onclick="showCertifications()">Certifications</button>
+      </div>
+      <div id="certificationsSection" style="display: none; margin-top: 20px;">
+        <h3>Online Certifications</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill,minmax(150px,1fr)); gap:10px;">
+          <div><img src="Presentation skills.png" style="width:100%; border-radius:8px;" onerror="this.src='https://via.placeholder.com/150/06b6d4?text=Cert'"><p>Presentation skills</p></div>
+          <div><img src="colimbia +.png" style="width:100%; border-radius:8px;" onerror="this.src='https://via.placeholder.com/150/06b6d4?text=Columbia'"><p>Columbia+</p></div>
+          <div><img src="digital.png" style="width:100%; border-radius:8px;" onerror="this.src='https://via.placeholder.com/150/06b6d4?text=Digital'"><p>Digital Intelligence</p></div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn primary back-button" onclick="goBack()">← Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVATE PROJECT PAGE (minimal) -->
+<div class="page" id="privateProjectPage" style="display: none;">
+  <div class="wrap" style="max-width: 900px;">
+    <div class="card">
+      <h1 class="gradient-text">Private Project</h1>
+      <div style="margin:20px 0">
+        <img src="galaxy.jpeg" style="width:100%; border-radius:12px;" onerror="this.src='https://via.placeholder.com/600x400/8b5cf6?text=Galaxy+Store'">
+        <h3>Galaxy store</h3>
+        <p>Premium APKs & Apps for Free!</p>
+        <button class="btn green" onclick="openLink('https://abhi787081.github.io/Dw-site/')">Enter Project</button>
+      </div>
+      <button class="btn primary back-button" onclick="goBack()">← Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Card Template -->
+<div id="profileCardTemplate">
+  <div class="card">
     <div class="glow-ring"></div>
     <div class="profile-photo">
-      <img src="this is my emage.jpg" alt="Amit Kumar photo" onerror="this.src='https://via.placeholder.com/160/06b6d4/ffffff?text=Amit'">
+      <img src="this is my emage.jpg" alt="Amit" onerror="this.src='https://via.placeholder.com/160/06b6d4/ffffff?text=Amit'">
     </div>
     <h1 class="gradient-text">Amit Kumar</h1>
-    <div class="sub">currently pursuing Bachelor of Computer Applications (Distance) from Chandigarh University</div>
+    <div class="sub">BCA (Distance) from Chandigarh University</div>
     <div class="badges">
       <div class="badge">Frontend Developer</div>
-      <div class="badge">HTML • CSS • JavaScript</div>
-      <div class="badge">UI/UX Enthusiast</div>
+      <div class="badge">HTML • CSS • JS</div>
     </div>
-    <div style="text-align:center;color:rgba(230,238,246,0.7);font-size:13px;">
-      Passionate about clean interfaces, animations, and responsive design.
+    <div style="text-align:center; font-size:13px;">Passionate about clean interfaces.</div>
+    <div class="stats">
+      <div class="stat"><strong>90+</strong><small>explores</small></div>
+      <div class="stat"><strong>3</strong><small>skills</small></div>
     </div>
-    <div class="stats" style="margin-top:16px">
-      <div class="stat"><strong>90+</strong><small>site explore</small></div>
-      <div class="stat"><strong>3</strong><small>Core Skills</small></div>
-    </div>
-    <div style="margin-top:18px;text-align:center">
+    <div style="margin-top:18px; text-align:center;">
       <a href="https://abhi787081.github.io/form-filling/"><button class="btn green">Contact</button></a>
     </div>
   </div>
 </div>
 
-<!-- ===== PROFILE POPUP (no close icon) ===== -->
+<!-- Popup overlay -->
 <div class="profile-popup-overlay" id="profilePopupOverlay">
   <div class="popup-card" id="popupCard">
-    <div class="popup-content" id="popupContent">
-      <!-- content will be cloned from hidden template -->
-    </div>
+    <div class="popup-content" id="popupContent"></div>
   </div>
 </div>
 
+<!-- Modals (simplified) -->
+<div class="modal" id="imageModal"><div class="modal-content"><span style="float:right; cursor:pointer;" onclick="closeImageModal()">✖</span><h2 id="modalTitle"></h2><img id="modalImage" style="max-width:100%;"></div></div>
+<div class="password-modal" id="passwordModal"><div class="password-content"><h3>Private Access</h3><input type="password" id="passwordInput" placeholder="Password"><div id="passwordError" style="color:#ef4444; display:none;">Wrong</div><button onclick="checkPassword()">Submit</button> <button onclick="closePasswordModal()">Cancel</button></div></div>
+
 <script>
-  // ---- typed effect, skill bars ----
+  // ---- typed effect ----
   (function(){
     const texts = ["HTML, CSS, JavaScript", "UI / UX Designer", "Frontend Developer"];
     const el = document.getElementById('typed');
@@ -543,137 +631,121 @@
     setTimeout(tick,1000);
   })();
 
+  // skill bars
   (function(){
-    const bars = Array.from(document.querySelectorAll('.bar > i'));
+    const bars = document.querySelectorAll('.bar > i');
     function check(){
-      const H = innerHeight;
-      for(const b of bars){
+      const H = window.innerHeight;
+      bars.forEach(b => {
         const parent = b.closest('.skill-card');
         if(parent && parent.getBoundingClientRect().top < H - 60) b.style.width = b.getAttribute('data-width');
-      }
+      });
     }
-    addEventListener('scroll', check, { passive: true });
-    addEventListener('resize', check, { passive: true });
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check, { passive: true });
     setTimeout(check,500);
   })();
 
-  // page navigation
-  window.showPage = function(page) {
+  // navigation
+  function showPage(page) {
     document.getElementById('homePage').style.display = 'none';
     document.getElementById('projectsPage').style.display = 'none';
     document.getElementById('resumePage').style.display = 'none';
     document.getElementById('privateProjectPage').style.display = 'none';
     document.getElementById(page + 'Page').style.display = 'flex';
     window.scrollTo(0,0);
-    // close any open popup
-    closeProfilePopup();
-  };
+    closeProfilePopup(); // close popup if open
+  }
+  window.showPage = showPage;
+
+  // back button uses history
+  function goBack() {
+    if (document.getElementById('homePage').style.display !== 'flex') {
+      showPage('home');
+    } else {
+      // if already home, do nothing
+    }
+  }
+  window.goBack = goBack;
+
+  // handle physical back button (popstate)
+  window.addEventListener('popstate', function() {
+    // if any page other than home is visible, go home
+    if (document.getElementById('projectsPage').style.display === 'flex' ||
+        document.getElementById('resumePage').style.display === 'flex' ||
+        document.getElementById('privateProjectPage').style.display === 'flex') {
+      showPage('home');
+    } else if (document.getElementById('profilePopupOverlay').classList.contains('active')) {
+      closeProfilePopup();
+    }
+  });
+  // push initial state
+  history.pushState({page:'home'}, '');
 
   function openLink(u){ window.open(u,'_blank'); }
 
-  // ---- PROFILE POPUP ANIMATION (pure card, no close icon, click outside to close) ----
+  // profile popup
   const overlay = document.getElementById('profilePopupOverlay');
   const popupCard = document.getElementById('popupCard');
   const popupContent = document.getElementById('popupContent');
   const openBtn = document.getElementById('profileOpenBtn');
+  const template = document.querySelector('#profileCardTemplate .card').cloneNode(true);
+  popupContent.innerHTML = '';
+  popupContent.appendChild(template);
 
-  // clone template content once
-  const templateCard = document.querySelector('#profileCardTemplate .card');
-  popupContent.innerHTML = ''; // clear
-  popupContent.appendChild(templateCard.cloneNode(true));
-
-  // function to get button position and size
   function getBtnRect() {
-    const btn = openBtn;
-    const rect = btn.getBoundingClientRect();
-    return {
-      left: rect.left + window.scrollX,
-      top: rect.top + window.scrollY,
-      width: rect.width,
-      height: rect.height,
-      right: rect.right + window.scrollX,
-      bottom: rect.bottom + window.scrollY,
-    };
+    const rect = openBtn.getBoundingClientRect();
+    return { left: rect.left + window.scrollX, top: rect.top + window.scrollY, width: rect.width, height: rect.height };
   }
-
   function openProfilePopup() {
     const rect = getBtnRect();
-    // set css variables for start position
     popupCard.style.setProperty('--start-width', rect.width + 'px');
     popupCard.style.setProperty('--start-height', rect.height + 'px');
     popupCard.style.left = rect.left + 'px';
     popupCard.style.top = rect.top + 'px';
     popupCard.style.transform = 'translate(0,0)';
-    
-    // make visible but small
     popupCard.style.opacity = '1';
     popupCard.classList.remove('expanded');
-
-    // force reflow
     popupCard.offsetHeight;
-
-    // now add expanded class to animate to center
     popupCard.style.transition = 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
     popupCard.classList.add('expanded');
-    
-    // set new position: fixed to center
     popupCard.style.left = '50%';
     popupCard.style.top = '50%';
     popupCard.style.transform = 'translate(-50%, -50%)';
-    
     overlay.classList.add('active');
+    history.pushState({popup:true}, ''); // for back button
   }
-
   function closeProfilePopup() {
     if (!overlay.classList.contains('active')) return;
     const rect = getBtnRect();
-    // shrink back to button
     popupCard.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
     popupCard.classList.remove('expanded');
     popupCard.style.left = rect.left + 'px';
     popupCard.style.top = rect.top + 'px';
     popupCard.style.transform = 'translate(0,0)';
-    popupCard.style.setProperty('--start-width', rect.width + 'px');
-    popupCard.style.setProperty('--start-height', rect.height + 'px');
-    
-    // after animation hide overlay
     setTimeout(() => {
       if (!popupCard.classList.contains('expanded')) {
         popupCard.style.opacity = '0';
         overlay.classList.remove('active');
-        // reset position for next open
       }
     }, 500);
+    if (history.state?.popup) history.back();
   }
-
-  openBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    openProfilePopup();
-  });
-
-  // close when clicking outside the popup card (on overlay)
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeProfilePopup();
-  });
-
-  // prevent closing when clicking inside popup content
+  openBtn.addEventListener('click', (e) => { e.stopPropagation(); openProfilePopup(); });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeProfilePopup(); });
   popupContent.addEventListener('click', (e) => e.stopPropagation());
 
-  // adjust on resize? for simplicity we ignore, but can be improved
-
-  // ---- other functions (image modal etc) - placeholder ----
-  window.showImageModal = function(){ alert('modal'); };
-  window.closeImageModal = function(){};
-  window.showCertifications = function(){};
-  window.showPasswordModal = function(){};
-  window.closePasswordModal = function(){};
-  window.checkPassword = function(){};
+  // modals
+  function showImageModal(title, url) { document.getElementById('modalTitle').innerText=title; document.getElementById('modalImage').src=url; document.getElementById('imageModal').classList.add('active'); }
+  function closeImageModal() { document.getElementById('imageModal').classList.remove('active'); }
+  function showCertifications() { document.getElementById('certificationsSection').style.display = 'block'; }
+  function showPasswordModal() { document.getElementById('passwordModal').classList.add('active'); }
+  function closePasswordModal() { document.getElementById('passwordModal').classList.remove('active'); }
+  function checkPassword() { 
+    if(document.getElementById('passwordInput').value === 'pagal123'){ closePasswordModal(); showPage('privateProject'); } 
+    else { document.getElementById('passwordError').style.display='block'; }
+  }
+  window.showImageModal=showImageModal; window.closeImageModal=closeImageModal; window.showCertifications=showCertifications; window.showPasswordModal=showPasswordModal; window.closePasswordModal=closePasswordModal; window.checkPassword=checkPassword;
 </script>
-
-<!-- other pages placeholders (minimal) -->
-<div class="page" id="projectsPage" style="display: none;"><div class="wrap">projects page</div></div>
-<div class="page" id="resumePage" style="display: none;"><div class="wrap">resume page</div></div>
-<div class="page" id="privateProjectPage" style="display: none;"><div class="wrap">private project</div></div>
-
 </body>
 </html>
